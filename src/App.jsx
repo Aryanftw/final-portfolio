@@ -1,161 +1,165 @@
-import React, { useState, useEffect, useRef } from "react";
-
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import {
-  ChevronsLeftRightEllipsis,
   Mail,
   Phone,
   FileText,
   ArrowUpRight,
+  ArrowUp,
+  ArrowRight,
   GraduationCap,
   Code2,
   Boxes,
   Database,
   Layers,
   Wrench,
-  Sparkles,
-  Star,
-  Zap,
-  Circle,
-  Triangle,
-  Square,
-  MoveRight,
+  Cpu,
+  MapPin,
+  Check,
+  Menu,
+  X,
+  Copy,
+  Sun,
+  Moon,
 } from "lucide-react";
-
 import { FaGithub, FaLinkedin } from "react-icons/fa";
-import {SiLeetcode} from "react-icons/si"
+import { SiLeetcode } from "react-icons/si";
 
-/* ---------- DATA (from resume, verbatim facts) ---------- */
+/* ---------- DATA (synced with aryan_resume_094.pdf) ---------- */
 
 const PROFILE = {
   name: "Aryan Parmar",
+  role: "Software Engineer — Full-stack & ML Systems",
   phone: "+91-9408744422",
   email: "ap890383@gmail.com",
-  github: "https://github.com",
-  linkedin: "https://linkedin.com",
+  location: "Surat, Gujarat — India",
+  school: "SVNIT Surat · B.Tech ECE '27",
+  github: "https://github.com/Aryanftw",
+  linkedin: "https://www.linkedin.com/in/aryan-parmar-90b10a324/",
+  leetcode: "https://leetcode.com/u/Ichigo_123/",
+  resume: "/aryan-latest-resume.pdf",
 };
 
 const EDUCATION = [
   {
-    school: "National Institute of Technology Surat",
-    location: "Gujarat, India",
-    degree: "B.Tech in Electronics and Communication Engineering",
-    detail: "CGPA: 7.40",
-    year: "2023 – Present",
+    school: "National Institute of Technology, Surat",
+    location: "Surat, Gujarat, India",
+    degree: "B.Tech — Electronics & Communication Engineering",
+    detail: "CGPA 7.37 / 10",
+    year: "2023 — Present",
   },
   {
     school: "GSHSEB Board",
     location: "Gujarat, India",
-    degree: "Higher Secondary Education",
-    detail: "Percentage: 78%",
+    degree: "Higher Secondary Education (Class XII)",
+    detail: "77%",
     year: "2023",
   },
   {
     school: "GSEB Board",
     location: "Gujarat, India",
-    degree: "Secondary Education",
-    detail: "Percentage: 76%",
+    degree: "Secondary Education (Class X)",
+    detail: "76%",
     year: "2021",
   },
 ];
 
 const SKILLS = [
-  { group: "Languages", icon: Code2, color: "#4F7DFF", items: ["Python", "JavaScript", "C++"] },
-  { group: "Frameworks", icon: Layers, color: "#FF8A65", items: ["Next.js", "Express.js", "Tailwind CSS"] },
-  { group: "Libraries", icon: Boxes, color: "#FFD43B", items: ["React.js", "Socket.IO"] },
-  { group: "Databases", icon: Database, color: "#7C4DFF", items: ["MongoDB", "PostgreSQL"] },
-  { group: "ORMs", icon: Layers, color: "#4F7DFF", items: ["Prisma", "Mongoose"] },
-  { group: "Tools", icon: Wrench, color: "#FF8A65", items: ["Git", "GitHub", "Postman", "VS Code", "Vercel"] },
+  { group: "Languages", icon: Code2, items: ["C++", "JavaScript", "Python", "SQL"] },
+  { group: "Frameworks & Libraries", icon: Layers, items: ["Node.js", "Express.js", "Next.js", "React.js", "Socket.IO", "FastAPI", "Tailwind CSS"] },
+  { group: "Databases", icon: Database, items: ["PostgreSQL", "MongoDB", "MySQL", "Redis"] },
+  { group: "ORMs", icon: Boxes, items: ["Prisma", "Mongoose"] },
+  { group: "Core Concepts", icon: Cpu, items: ["DSA", "REST API Design", "System Design", "OOP", "DBMS", "OS", "Networks"] },
+  { group: "Testing & Tooling", icon: Wrench, items: ["Unit & Integration Testing", "Postman", "Git", "GitHub", "Docker", "VS Code", "Vercel"] },
 ];
 
 const PROJECTS = [
   {
-    title: "Fake Account Detection System",
-    tag: "Echelon Hackathon Project",
+    title: "QueueForge — Distributed Job Processing",
+    tag: "Systems · 2026",
     year: "2026",
-    color: "#4F7DFF",
+    tint: "#EFF1EC",
     description:
-      "A fake social-media account detection system combining behavioral analysis with NLP-based text classification.",
+      "A scalable distributed background-job system built from scratch on Node.js and Redis — no BullMQ, no Agenda.",
     features: [
-      "Random Forest model for behavioral pattern analysis",
-      "BERT-based NLP for profile bio and text classification",
-      "TextStat linguistic features (readability, lexical complexity) to boost bot vs human accuracy",
-      "FastAPI backend paired with a Streamlit dashboard for live prediction insights",
+      "Four-process architecture: Producer, Worker, Scheduler, Dashboard with concurrent multi-worker ownership",
+      "Priority queues, delayed jobs, exponential-backoff retries and dead-letter queues for failure stability",
+      "8+ REST APIs over Redis lists, hashes and sorted sets — validated against 1,000+ simulated jobs",
+      "React operations dashboard with Recharts: throughput, worker activity, failures, queue depth",
+    ],
+    tech: ["Node.js", "Redis", "React.js", "REST API", "Recharts"],
+    live: "",
+    code: "https://github.com/Aryanftw",
+  },
+  {
+    title: "Real-Time Traffic Violation Detection",
+    tag: "Computer Vision · 2026",
+    year: "2026",
+    tint: "#F2EFE8",
+    description:
+      "Dual-model YOLOv8 pipeline spotting helmet violations, triple riding and licence plates in real time.",
+    features: [
+      "YOLOv8 + OpenCV + EasyOCR detection pipeline for helmet, triple-riding and plate recognition",
+      "Evaluation framework across 1,000+ annotated frames to measure detection accuracy",
+      "Automatic violation logging with visual evidence for audit trails",
+    ],
+    tech: ["Python", "YOLOv8", "OpenCV", "EasyOCR"],
+    live: "",
+    code: "https://github.com/Aryanftw",
+  },
+  {
+    title: "Fake Social Media Account Detection",
+    tag: "Echelon Hackathon · ML",
+    year: "2026",
+    tint: "#F2F0EB",
+    description:
+      "Behavioural modelling fused with NLP profile analysis to flag fake accounts with measurable accuracy.",
+    features: [
+      "Random Forest on behavioural features combined with BERT-based profile text classification",
+      "15+ engineered linguistic features via TextStat for bot-vs-human signal",
+      "FastAPI backend with Streamlit dashboard for real-time predictions and metrics",
     ],
     tech: ["Python", "Random Forest", "BERT", "FastAPI", "Streamlit", "TextStat"],
     live: "",
-    code: "https://github.com/Aryanftw/fake-account-detection"
+    code: "https://github.com/Aryanftw/fake-account-detection",
   },
   {
-    title: "Helper Buddy",
-    tag: "GWOC Project",
+    title: "Helper Buddy — Service Booking Platform",
+    tag: "GWOC · Full-stack",
     year: "2025",
-    color: "#FF8A65",
+    tint: "#EFEEF3",
     description:
-      "A full-stack cleaning service booking platform built for speed, structure and scale.",
+      "A production service-booking marketplace built with a team across 10+ responsive pages.",
     features: [
-      "Next.js App Router with a responsive, optimized-routing UI",
-      "Global state management with Zustand",
-      "Prisma ORM wired to PostgreSQL for reliable data operations",
-      "Production-ready, scalable backend architecture deployed live",
+      "Next.js storefront with Prisma + PostgreSQL modelling 8+ relational entities",
+      "Global state with Zustand, shipped to production under Google Winter of Code (GWOC)",
     ],
-    tech: ["Next.js", "Zustand", "Prisma", "PostgreSQL"],
-    live:"https://helperbuddy-sigma.vercel.app/",
-    code: "https://github.com/lokesh-makam/HelperBuddy"
-  },
-  {
-    title: "Chat Application",
-    tag: "Personal Project",
-    year: "2025",
-    color: "#7C4DFF",
-    description:
-      "A real-time chat application built for low-latency conversation with rich media sharing.",
-    features: [
-      "Real-time messaging with file and image sharing",
-      "Socket.IO integration for low-latency communication",
-      "Cloudinary-powered secure media storage and delivery",
-      "Scalable Express.js + Mongoose backend for message persistence",
-    ],
-    tech: ["Socket.IO", "Express.js", "Mongoose", "Cloudinary"],
-    live: "https://blab-chat.onrender.com",
-    code: "https://github.com/Aryanftw/blab-chat-app"
-  },
-  {
-    title: "POSTLY — Blog Application",
-    tag: "Personal Project",
-    year: "2025",
-    color: "#FFD43B",
-    description:
-      "A blogging platform with a clean RESTful backend and a fast, responsive frontend.",
-    features: [
-      "RESTful APIs built with Express.js and MongoDB",
-      "Responsive React.js frontend styled with Tailwind CSS",
-      "Backend deployed on Render, frontend deployed on Vercel",
-      "Optimized end-to-end user experience for reading and writing posts",
-    ],
-    tech: ["React.js", "Express.js", "MongoDB", "Tailwind CSS", "Render", "Vercel"],
-    live: "https://blog-app-three-kappa-83.vercel.app/",
-    code: "https://github.com/Aryanftw/blog-app"
+    tech: ["Next.js", "Prisma", "PostgreSQL", "Zustand"],
+    live: "https://helperbuddy-sigma.vercel.app/",
+    code: "https://github.com/lokesh-makam/HelperBuddy",
   },
 ];
 
 const POSITIONS = [
   {
-    org: "Google Developer Group, NIT Surat",
+    org: "Google Developer Group (GDG), NIT Surat",
     role: "Junior Developer",
-    period: "Oct 2024 – May 2025",
-    color: "#4F7DFF",
+    period: "Oct 2024 — May 2025",
   },
   {
     org: "ACM Club, NIT Surat",
-    role: "Executive",
-    period: "Aug 2024 – Mar 2025",
-    color: "#FF8A65",
+    role: "Executive Member",
+    period: "Aug 2024 — Mar 2025",
   },
+];
+
+const STACK_STRIP = [
+  "Node.js", "React", "Next.js", "Python", "Redis",
+  "PostgreSQL", "MongoDB", "YOLOv8", "FastAPI", "Docker", "Prisma", "Tailwind",
 ];
 
 const NAV = ["Home", "About", "Education", "Skills", "Projects", "Experience", "Contact"];
 
-/* ---------- SHARED UI PRIMITIVES ---------- */
+/* ---------- HOOKS ---------- */
 
 function useReveal() {
   const ref = useRef(null);
@@ -170,7 +174,7 @@ function useReveal() {
           obs.unobserve(el);
         }
       },
-      { threshold: 0.15 }
+      { threshold: 0.12 }
     );
     obs.observe(el);
     return () => obs.disconnect();
@@ -183,11 +187,11 @@ function Reveal({ children, delay = 0, className = "", style = {} }) {
   return (
     <div
       ref={ref}
-      className={className}
+      className={`reveal ${className}`}
       style={{
-        transform: visible ? "translateY(0)" : "translateY(28px)",
+        transform: visible ? "translateY(0)" : "translateY(24px)",
         opacity: visible ? 1 : 0,
-        transition: `all 0.6s cubic-bezier(.17,.84,.44,1) ${delay}ms`,
+        transition: `opacity .7s cubic-bezier(.22,1,.36,1) ${delay}ms, transform .7s cubic-bezier(.22,1,.36,1) ${delay}ms`,
         ...style,
       }}
     >
@@ -196,813 +200,754 @@ function Reveal({ children, delay = 0, className = "", style = {} }) {
   );
 }
 
-function BrutalButton({ children, href, onClick, bg = "#111111", fg = "#FFF8E8", small }) {
+/* Animated number: counts up when `active` becomes true */
+function useCountUp(target, active, duration = 1400) {
+  const [val, setVal] = useState(0);
+  useEffect(() => {
+    if (!active) return;
+    let raf;
+    const t0 = performance.now();
+    const tick = (t) => {
+      const p = Math.min((t - t0) / duration, 1);
+      const eased = 1 - Math.pow(1 - p, 3);
+      setVal(target * eased);
+      if (p < 1) raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+  }, [active, target, duration]);
+  return val;
+}
+
+function Stat({ value, suffix = "", decimals = 0, label, active }) {
+  const v = useCountUp(value, active);
+  const text = decimals > 0 ? v.toFixed(decimals) : Math.round(v).toString().padStart(2, "0");
   return (
-    <a
-      href={href}
-      onClick={onClick}
-      target={href && href.startsWith("http") ? "_blank" : undefined}
-      rel="noreferrer"
-      style={{
-        display: "inline-flex",
-        alignItems: "center",
-        gap: 8,
-        background: bg,
-        color: fg,
-        fontWeight: 800,
-        fontSize: small ? 14 : 17,
-        padding: small ? "10px 18px" : "16px 28px",
-        borderRadius: 16,
-        border: "4px solid #000",
-        boxShadow: "6px 6px 0px #000",
-        cursor: "pointer",
-        textDecoration: "none",
-        transition: "transform 0.15s ease, box-shadow 0.15s ease",
-        userSelect: "none",
-      }}
-      onMouseEnter={(e) => {
-        e.currentTarget.style.transform = "translate(-3px,-3px)";
-        e.currentTarget.style.boxShadow = "9px 9px 0px #000";
-      }}
-      onMouseLeave={(e) => {
-        e.currentTarget.style.transform = "translate(0,0)";
-        e.currentTarget.style.boxShadow = "6px 6px 0px #000";
-      }}
-    >
+    <div className="hero-stat">
+      <b style={{ fontVariantNumeric: "tabular-nums" }}>{text}{suffix}</b>
+      <span>{label}</span>
+    </div>
+  );
+}
+
+/* Magnetic hover wrapper — subtle pull toward cursor */
+function Magnetic({ children, strength = 6 }) {
+  const ref = useRef(null);
+  const onMove = (e) => {
+    const el = ref.current;
+    if (!el || window.matchMedia("(hover: none)").matches) return;
+    const r = el.getBoundingClientRect();
+    const x = e.clientX - (r.left + r.width / 2);
+    const y = e.clientY - (r.top + r.height / 2);
+    el.style.transform = `translate(${(x / r.width) * strength * 2}px, ${(y / r.height) * strength * 2}px)`;
+  };
+  const onLeave = () => {
+    if (ref.current) ref.current.style.transform = "translate(0,0)";
+  };
+  return (
+    <span ref={ref} className="magnetic" onMouseMove={onMove} onMouseLeave={onLeave}>
       {children}
-    </a>
+    </span>
   );
 }
 
-function SectionTitle({ eyebrow, title, color = "#4F7DFF" }) {
+/* Card spotlight — soft radial glow following the cursor */
+function useSpotlight() {
+  return useCallback((e) => {
+    const el = e.currentTarget;
+    const r = el.getBoundingClientRect();
+    el.style.setProperty("--mx", `${e.clientX - r.left}px`);
+    el.style.setProperty("--my", `${e.clientY - r.top}px`);
+  }, []);
+}
+
+function Eyebrow({ children }) {
   return (
-    <div style={{ marginBottom: 48, textAlign: "center" }}>
-      <div
-        style={{
-          display: "inline-block",
-          background: color,
-          border: "3px solid #000",
-          borderRadius: 999,
-          padding: "6px 18px",
-          fontWeight: 800,
-          fontSize: 13,
-          letterSpacing: 1,
-          textTransform: "uppercase",
-          color: "#111",
-          marginBottom: 18,
-          boxShadow: "4px 4px 0px #000",
-          transform: "rotate(-2deg)",
-        }}
-      >
-        {eyebrow}
-      </div>
-      <h2
-        style={{
-          fontSize: "clamp(2.2rem, 5vw, 4rem)",
-          fontWeight: 900,
-          color: "#111",
-          lineHeight: 1.05,
-          margin: 0,
-          textTransform: "uppercase",
-          letterSpacing: -1,
-        }}
-      >
-        {title}
-      </h2>
+    <div className="eyebrow-row">
+      <span className="eyebrow-line" />
+      <span className="small-caps">{children}</span>
     </div>
   );
 }
 
-/* ---------- FLOATING BACKGROUND SHAPES ---------- */
+/* ---------- DAY / NIGHT ---------- */
 
-function FloatingShapes() {
-  const shapes = [
-    { Icon: Circle, top: "12%", left: "6%", color: "#FFD43B", size: 46, dur: 7 },
-    { Icon: Square, top: "68%", left: "4%", color: "#FF8A65", size: 38, dur: 9 },
-    { Icon: Triangle, top: "20%", left: "88%", color: "#7C4DFF", size: 50, dur: 8 },
-    { Icon: Star, top: "75%", left: "90%", color: "#4F7DFF", size: 40, dur: 6.5 },
-    { Icon: Zap, top: "45%", left: "94%", color: "#FFD43B", size: 34, dur: 10 },
-  ];
-  return (
-    <div style={{ position: "absolute", inset: 0, overflow: "hidden", pointerEvents: "none" }}>
-      {shapes.map((s, i) => (
-        <div
-          key={i}
-          style={{
-            position: "absolute",
-            top: s.top,
-            left: s.left,
-            animation: `floaty ${s.dur}s ease-in-out infinite`,
-            animationDelay: `${i * 0.4}s`,
-          }}
-        >
-          <s.Icon size={s.size} color={s.color} strokeWidth={2.5} style={{ filter: "drop-shadow(3px 3px 0px #000)" }} />
-        </div>
-      ))}
-    </div>
-  );
+function getInitialTheme() {
+  if (typeof window === "undefined") return "light";
+  try {
+    const saved = window.localStorage.getItem("ap-theme");
+    if (saved === "light" || saved === "dark") return saved;
+  } catch { /* ignore */ }
+  if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) {
+    return "dark";
+  }
+  return "light";
 }
 
-/* ---------- NAVBAR ---------- */
-
-function Navbar({ active, onNav }) {
+function ThemeToggle({ theme, onToggle, label }) {
+  const isDark = theme === "dark";
   return (
-    <div
-      style={{
-        position: "fixed",
-        top: 18,
-        left: "50%",
-        transform: "translateX(-50%)",
-        zIndex: 50,
-        background: "#FFFFFF",
-        border: "4px solid #000",
-        borderRadius: 999,
-        boxShadow: "6px 6px 0px #000",
-        padding: "10px 10px",
-        display: "flex",
-        gap: 4,
-        maxWidth: "94vw",
-        overflowX: "auto",
-      }}
+    <button
+      className="theme-toggle"
+      onClick={onToggle}
+      aria-label={label || (isDark ? "Switch to day mode" : "Switch to night mode")}
+      title={isDark ? "Switch to day mode" : "Switch to night mode"}
     >
-      {NAV.map((item) => (
-        <button
-          key={item}
-          onClick={() => onNav(item)}
-          style={{
-            border: "none",
-            background: active === item ? "#4F7DFF" : "transparent",
-            color: active === item ? "#111" : "#111",
-            fontWeight: 800,
-            fontSize: 13,
-            padding: "9px 16px",
-            borderRadius: 999,
-            cursor: "pointer",
-            whiteSpace: "nowrap",
-            transition: "background 0.2s ease",
-          }}
-        >
-          {item}
-        </button>
-      ))}
+      <Sun size={17} className="ti ti-sun" />
+      <Moon size={17} className="ti ti-moon" />
+    </button>
+  );
+}
+
+/* ---------- LOADER ---------- */
+
+function Loader({ exiting }) {
+  const [pct, setPct] = useState(0);
+  useEffect(() => {
+    let raf;
+    const t0 = performance.now();
+    const dur = 1300;
+    const tick = (t) => {
+      const p = Math.min((t - t0) / dur, 1);
+      setPct(Math.round((1 - Math.pow(1 - p, 2)) * 100));
+      if (p < 1) raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+  }, []);
+  return (
+    <div className={`loader ${exiting ? "loader-exit" : ""}`} aria-hidden="true">
+      <div className="loader-inner">
+        <div className="loader-mark">A</div>
+        <div className="loader-name">Aryan Parmar</div>
+        <div className="loader-sub">Portfolio — 2026</div>
+        <div className="loader-track">
+          <div className="loader-fill" style={{ width: `${pct}%` }} />
+        </div>
+        <div className="loader-pct">{pct}%</div>
+      </div>
+    </div>
+  );
+}
+
+/* ---------- SCROLLER ---------- */
+
+function ScrollProgress() {
+  const ref = useRef(null);
+  useEffect(() => {
+    let raf = 0;
+    const onScroll = () => {
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(() => {
+        const h = document.documentElement;
+        const max = h.scrollHeight - h.clientHeight;
+        const p = max > 0 ? h.scrollTop / max : 0;
+        if (ref.current) ref.current.style.transform = `scaleX(${p})`;
+      });
+    };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      cancelAnimationFrame(raf);
+    };
+  }, []);
+  return (
+    <div className="progress-track" aria-hidden="true">
+      <div ref={ref} className="progress-fill" />
+    </div>
+  );
+}
+
+function BackToTop() {
+  const [show, setShow] = useState(false);
+  useEffect(() => {
+    const onScroll = () => setShow(window.scrollY > 700);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+  return (
+    <button
+      className={`back-top ${show ? "show" : ""}`}
+      onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+      aria-label="Back to top"
+      tabIndex={show ? 0 : -1}
+    >
+      <ArrowUp size={17} />
+    </button>
+  );
+}
+
+/* ---------- NAV ---------- */
+
+function Navbar({ active, onNav, theme, onToggleTheme }) {
+  const [open, setOpen] = useState(false);
+  const [hidden, setHidden] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const lastY = useRef(0);
+
+  useEffect(() => {
+    const onScroll = () => {
+      const y = window.scrollY;
+      setScrolled(y > 24);
+      if (y > 320 && y > lastY.current + 4 && !open) setHidden(true);
+      else if (y < lastY.current - 4 || y < 320) setHidden(false);
+      lastY.current = y;
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, [open ]);
+
+  const go = (id) => {
+    setOpen(false);
+    onNav(id);
+  };
+
+  return (
+    <div className={`nav-shell ${hidden ? "nav-hidden" : ""}`}>
+      <div style={{ width: "min(1120px, 100%)", pointerEvents: "auto" }}>
+        <nav className={`nav ${scrolled ? "nav-scrolled" : ""}`} aria-label="Primary">
+          <a href="#Home" onClick={(e) => { e.preventDefault(); go("Home"); }} className="brand">
+            <span className="brand-mark">A</span>
+            <span>
+              <span className="brand-name">Aryan Parmar</span>
+              <span className="brand-sub">Portfolio ’26</span>
+            </span>
+          </a>
+          <div className="nav-links">
+            {NAV.map((item) => (
+              <button
+                key={item}
+                onClick={() => go(item)}
+                className={`nav-link ${active === item ? "active" : ""}`}
+              >
+                {item}
+              </button>
+            ))}
+          </div>
+          <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
+            <ThemeToggle theme={theme} onToggle={onToggleTheme} />
+            <Magnetic>
+              <button className="btn btn-primary btn-sm nav-cta" onClick={() => go("Contact")}>
+                Let’s talk <ArrowUpRight size={15} />
+              </button>
+            </Magnetic>
+            <button className="hamburger" onClick={() => setOpen((v) => !v)} aria-label="Menu">
+              {open ? <X size={18} /> : <Menu size={18} />}
+            </button>
+          </div>
+        </nav>
+        {open && (
+          <div className="mobile-menu">
+            {NAV.map((item, i) => (
+              <button
+                key={item}
+                onClick={() => go(item)}
+                className={`${active === item ? "active" : ""} m-item`}
+                style={{ animationDelay: `${i * 35}ms` }}
+              >
+                <span className="m-index">0{i + 1}</span> {item}
+              </button>
+            ))}
+            <div className="mobile-menu-foot">
+              <span>{theme === "dark" ? "Night mode" : "Day mode"}</span>
+              <ThemeToggle theme={theme} onToggle={onToggleTheme} />
+            </div>
+          </div>
+        )}
+      </div>
     </div>
   );
 }
 
 /* ---------- HERO ---------- */
 
-function Hero({ scrollTo }) {
+function Hero({ onNav, ready }) {
   return (
-    <section
-      id="Home"
-      style={{
-        position: "relative",
-        minHeight: "100vh",
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-        alignItems: "center",
-        padding: "120px 24px 80px",
-        overflow: "hidden",
-      }}
-    >
-      <FloatingShapes />
-      <Reveal>
-        <div
-          style={{
-            display: "inline-flex",
-            alignItems: "center",
-            gap: 8,
-            background: "#FFD43B",
-            border: "3px solid #000",
-            borderRadius: 999,
-            padding: "8px 18px",
-            fontWeight: 800,
-            fontSize: 14,
-            boxShadow: "4px 4px 0px #000",
-            marginBottom: 28,
-            transform: "rotate(-2deg)",
-          }}
-        >
-          <Sparkles size={16} /> Available for SWE internships
+    <section id="Home" className="hero">
+      <div className="wrap hero-grid">
+        <div className={`hero-enter ${ready ? "in" : ""}`}>
+          <div className="he he-1">
+            <span className="status-pill">
+              <span className="dot" /> Available for SWE internships · 2026
+            </span>
+          </div>
+          <h1 className="display he he-2">
+            Building <em>quiet,</em><br />
+            capable software<br />
+            that ships.
+          </h1>
+          <p className="lede hero-lede he he-3">
+            I’m {PROFILE.name} — an ECE undergrad at SVNIT Surat working across
+            distributed backends, full-stack platforms and ML vision systems.
+          </p>
+          <div className="hero-ctas he he-4">
+            <Magnetic>
+              <a className="btn btn-primary" href={PROFILE.resume} download>
+                <FileText size={16} /> Download Résumé
+              </a>
+            </Magnetic>
+            <Magnetic>
+              <a className="btn btn-ghost" href={PROFILE.github} target="_blank" rel="noreferrer">
+                <FaGithub size={16} /> GitHub
+              </a>
+            </Magnetic>
+            <Magnetic>
+              <a className="btn btn-ghost" href={PROFILE.linkedin} target="_blank" rel="noreferrer">
+                <FaLinkedin size={16} /> LinkedIn
+              </a>
+            </Magnetic>
+          </div>
+          <div className="hero-meta he he-5">
+            <Stat value={4} label="Projects shipped" active={ready} />
+            <Stat value={7.37} decimals={2} label="CGPA · SVNIT" active={ready} />
+            <Stat value={500} suffix="+" label="DSA problems" active={ready} />
+          </div>
         </div>
-      </Reveal>
 
-      <Reveal delay={100}>
-        <h1
-          style={{
-            fontSize: "clamp(3rem, 10vw, 7rem)",
-            fontWeight: 900,
-            textAlign: "center",
-            lineHeight: 0.95,
-            margin: "0 0 20px",
-            color: "#111",
-            letterSpacing: -2,
-            textTransform: "uppercase",
-          }}
-        >
-          {PROFILE.name}
-        </h1>
-      </Reveal>
-
-      <Reveal delay={200}>
-        <p
-          style={{
-            fontSize: "clamp(1.3rem, 3vw, 2rem)",
-            fontWeight: 800,
-            textAlign: "center",
-            maxWidth: 780,
-            margin: "0 0 22px",
-            color: "#4F7DFF",
-            lineHeight: 1.15,
-          }}
-        >
-          Electronics &amp; Communication Engineer who builds full‑stack products and ML systems.
-        </p>
-      </Reveal>
-
-      <Reveal delay={300}>
-        <p
-          style={{
-            fontSize: 18,
-            maxWidth: 620,
-            textAlign: "center",
-            color: "#333",
-            fontWeight: 500,
-            margin: "0 0 40px",
-            lineHeight: 1.6,
-          }}
-        >
-          B.Tech student at NIT Surat shipping projects across computer vision,
-          ML-driven detection systems, and production full-stack web apps —
-          from FastAPI backends to Next.js platforms.
-        </p>
-      </Reveal>
-
-      <Reveal delay={400}>
-        <div style={{ display: "flex", gap: 16, flexWrap: "wrap", justifyContent: "center" }}>
-          <BrutalButton
-  bg="#111111"
-  fg="#FFF8E8"
-  href="/aryan-latest-resume.pdf"
-  download
->
-  <FileText size={18} /> Download Resume
-</BrutalButton>
-          <BrutalButton bg="#FFFFFF" fg="#111" href="https://github.com/Aryanftw">
-            <FaGithub size={18} /> GitHub
-          </BrutalButton>
-          <BrutalButton bg="#7C4DFF" fg="#FFF8E8" href="https://www.linkedin.com/in/aryan-parmar-90b10a324/">
-            <FaLinkedin size={18} /> LinkedIn
-          </BrutalButton>
-        </div>
-      </Reveal>
+        <Reveal delay={200} className={`hero-card-wrap ${ready ? "" : "pre"}`}>
+          <aside className="profile-card spot" aria-label="Profile summary">
+            <div className="profile-top">
+              <div className="avatar">A</div>
+              <div>
+                <h3>{PROFILE.name}</h3>
+                <p>{PROFILE.role}</p>
+              </div>
+            </div>
+            <div className="profile-rows">
+              <div className="profile-row"><MapPin size={15} /> {PROFILE.location}</div>
+              <div className="profile-row"><GraduationCap size={15} /> {PROFILE.school}</div>
+              <div className="profile-row"><Mail size={15} /> {PROFILE.email}</div>
+              <div className="profile-row"><Phone size={15} /> {PROFILE.phone}</div>
+            </div>
+            <div className="profile-cta">
+              <button className="btn btn-primary btn-sm" onClick={() => onNav("Projects")}>
+                View work <ArrowRight size={14} />
+              </button>
+              <button className="btn btn-ghost btn-sm" onClick={() => onNav("Contact")}>
+                Contact
+              </button>
+            </div>
+          </aside>
+        </Reveal>
+      </div>
+      <div className="scroll-hint" aria-hidden="true">
+        <span className="scroll-mouse"><span className="scroll-wheel" /></span>
+        <span>Scroll</span>
+      </div>
     </section>
   );
 }
 
-/* ---------- ABOUT ---------- */
+function StackStrip() {
+  const row = [...STACK_STRIP, ...STACK_STRIP];
+  return (
+    <div className="strip" aria-hidden="true">
+      <div className="strip-inner">
+        {row.map((s, i) => (
+          <span key={i}>{s} <i /></span>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+/* ---------- SECTIONS ---------- */
 
 function About() {
+  const spot = useSpotlight();
   return (
-    <section id="About" style={{ padding: "100px 24px", position: "relative" }}>
-      <SectionTitle eyebrow="Who I am" title="About Me" color="#FFD43B" />
-      <Reveal>
-        <div
-          style={{
-            maxWidth: 880,
-            margin: "0 auto",
-            background: "#FFFFFF",
-            border: "4px solid #000",
-            borderRadius: 22,
-            boxShadow: "10px 10px 0px #000",
-            padding: "44px",
-            transform: "rotate(-0.6deg)",
-          }}
-        >
-          <p style={{ fontSize: 19, lineHeight: 1.75, color: "#111", fontWeight: 500, margin: 0 }}>
-            I'm <strong>Aryan Parmar</strong>, a B.Tech student in Electronics
-            &amp; Communication Engineering at{" "}
-            <strong>National Institute of Technology, Surat</strong>, currently
-            holding a CGPA of <strong>7.40</strong>. Alongside my coursework, I
-            build production-style software: a fake-account detection system
-            combining Random Forest and BERT for the Echelon Hackathon, a
-            full-stack cleaning-service marketplace with Next.js and
-            PostgreSQL, a real-time chat app with Socket.IO and Cloudinary, and
-            a blogging platform on the MERN stack. I work comfortably across{" "}
-            <strong>Python, JavaScript, and C++</strong>, and I've taken on
-            leadership roles as a Junior Developer at{" "}
-            <strong>Google Developer Group, NIT Surat</strong> and an
-            Executive at the <strong>ACM Club, NIT Surat</strong>. I'm looking
-            for a software engineering internship where I can keep shipping
-            real products.
-          </p>
+    <section id="About" className="section-pad">
+      <div className="wrap split">
+        <div className="split-sticky">
+          <Reveal>
+            <Eyebrow>01 — About</Eyebrow>
+            <h2 className="section-title">Engineer with a product mindset.</h2>
+          </Reveal>
         </div>
-      </Reveal>
+        <Reveal delay={120}>
+          <div className="about-body">
+            <p>
+              I’m <strong>Aryan Parmar</strong>, a B.Tech student in Electronics &amp;
+              Communication at <strong>SVNIT Surat</strong> (CGPA <strong>7.37</strong>).
+              I build systems end-to-end — a distributed job processor on Node.js
+              + Redis with its own queue internals, a real-time traffic-violation
+              detector on YOLOv8, an ML fake-account detector, and a GWOC
+              production marketplace on Next.js + PostgreSQL.
+            </p>
+            <p>
+              I work across <strong>C++, JavaScript, Python and SQL</strong>, care
+              about REST design, system design and testing, and I’ve led as a
+              Junior Developer at <strong>GDG NIT Surat</strong> and an Executive
+              Member at the <strong>ACM Club</strong>. I’m looking for a software
+              engineering internship where I can keep shipping real products.
+            </p>
+            <ul className="tick-list">
+              {[
+                "Distributed systems: queues, retries, DLQs",
+                "Vision + ML: YOLOv8, BERT, FastAPI",
+                "Full-stack: Next.js, Express, Prisma",
+                "Data: PostgreSQL, Redis, MongoDB",
+              ].map((t) => (
+                <li key={t} className="spot" onMouseMove={spot}>
+                  <span className="tick"><Check size={13} /></span> {t}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </Reveal>
+      </div>
     </section>
   );
 }
-
-/* ---------- EDUCATION ---------- */
 
 function Education() {
+  const spot = useSpotlight();
   return (
-    <section id="Education" style={{ padding: "100px 24px" }}>
-      <SectionTitle eyebrow="Academics" title="Education" color="#7C4DFF" />
-      <div style={{ maxWidth: 820, margin: "0 auto", display: "flex", flexDirection: "column", gap: 28 }}>
-        {EDUCATION.map((ed, i) => (
-          <Reveal key={ed.school} delay={i * 120}>
-            <div
-              style={{
-                display: "flex",
-                gap: 22,
-                alignItems: "flex-start",
-                background: "#FFFFFF",
-                border: "4px solid #000",
-                borderRadius: 20,
-                boxShadow: "8px 8px 0px #000",
-                padding: 28,
-                transform: `rotate(${i % 2 === 0 ? -1 : 1}deg)`,
-                transition: "transform 0.2s ease, box-shadow 0.2s ease",
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.transform = "rotate(0deg) translateY(-4px)";
-                e.currentTarget.style.boxShadow = "12px 12px 0px #000";
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.transform = `rotate(${i % 2 === 0 ? -1 : 1}deg)`;
-                e.currentTarget.style.boxShadow = "8px 8px 0px #000";
-              }}
-            >
-              <div
-                style={{
-                  flexShrink: 0,
-                  width: 60,
-                  height: 60,
-                  borderRadius: 16,
-                  background: "#FFD43B",
-                  border: "3px solid #000",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-              >
-                <GraduationCap size={30} color="#111" />
-              </div>
-              <div style={{ flex: 1 }}>
-                <div style={{ display: "flex", justifyContent: "space-between", flexWrap: "wrap", gap: 8 }}>
-                  <h3 style={{ margin: 0, fontSize: 20, fontWeight: 900, color: "#111" }}>{ed.school}</h3>
-                  <span
-                    style={{
-                      fontWeight: 800,
-                      fontSize: 13,
-                      background: "#4F7DFF",
-                      border: "2px solid #000",
-                      borderRadius: 999,
-                      padding: "4px 12px",
-                      color: "#111",
-                    }}
-                  >
-                    {ed.year}
-                  </span>
-                </div>
-                <p style={{ margin: "6px 0 4px", fontWeight: 700, color: "#333" }}>{ed.degree}</p>
-                <p style={{ margin: 0, color: "#666", fontSize: 14 }}>{ed.location} · {ed.detail}</p>
-              </div>
-            </div>
+    <section id="Education" className="section-pad" style={{ paddingTop: 0 }}>
+      <div className="wrap">
+        <div className="two-col-head">
+          <Reveal>
+            <Eyebrow>02 — Academics</Eyebrow>
+            <h2 className="section-title">Education</h2>
           </Reveal>
-        ))}
+          <Reveal delay={100}>
+            <p className="section-sub">
+              A steady academic base in electronics and engineering, paired with
+              self-driven work in software and machine learning.
+            </p>
+          </Reveal>
+        </div>
+        <div className="timeline">
+          {EDUCATION.map((ed, i) => (
+            <Reveal key={ed.school} delay={i * 90}>
+              <div className="card t-item spot" onMouseMove={spot}>
+                <div className="t-icon"><GraduationCap size={22} strokeWidth={1.6} /></div>
+                <div>
+                  <h3>{ed.school}</h3>
+                  <p className="meta">{ed.degree} · {ed.detail}</p>
+                  <p className="meta" style={{ fontSize: 13 }}>{ed.location}</p>
+                </div>
+                <span className="t-year">{ed.year}</span>
+              </div>
+            </Reveal>
+          ))}
+        </div>
       </div>
     </section>
   );
 }
-
-/* ---------- SKILLS ---------- */
 
 function Skills() {
+  const spot = useSpotlight();
   return (
-    <section id="Skills" style={{ padding: "100px 24px" }}>
-      <SectionTitle eyebrow="Toolbox" title="Skills" color="#FF8A65" />
-      <div
-        style={{
-          maxWidth: 1100,
-          margin: "0 auto",
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
-          gap: 24,
-        }}
-      >
-        {SKILLS.map((group, i) => (
-          <Reveal key={group.group} delay={i * 90}>
-            <div
-              style={{
-                background: "#FFFFFF",
-                border: "4px solid #000",
-                borderRadius: 20,
-                boxShadow: "8px 8px 0px #000",
-                padding: 24,
-                height: "100%",
-              }}
-            >
-              <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 18 }}>
-                <div
-                  style={{
-                    width: 40,
-                    height: 40,
-                    borderRadius: 12,
-                    background: group.color,
-                    border: "3px solid #000",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                  }}
-                >
-                  <group.icon size={20} color="#111" />
-                </div>
-                <h3 style={{ margin: 0, fontWeight: 900, fontSize: 18, textTransform: "uppercase" }}>
-                  {group.group}
-                </h3>
-              </div>
-              <div style={{ display: "flex", flexWrap: "wrap", gap: 10 }}>
-                {group.items.map((item) => (
-                  <span
-                    key={item}
-                    style={{
-                      display: "inline-block",
-                      background: "#FFF8E8",
-                      border: "3px solid #000",
-                      borderRadius: 12,
-                      padding: "7px 14px",
-                      fontWeight: 800,
-                      fontSize: 13,
-                      boxShadow: "3px 3px 0px #000",
-                      transition: "transform 0.15s ease, box-shadow 0.15s ease",
-                      cursor: "default",
-                    }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.transform = "translate(-2px,-2px)";
-                      e.currentTarget.style.boxShadow = "5px 5px 0px #000";
-                      e.currentTarget.style.background = group.color;
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.transform = "translate(0,0)";
-                      e.currentTarget.style.boxShadow = "3px 3px 0px #000";
-                      e.currentTarget.style.background = "#FFF8E8";
-                    }}
-                  >
-                    {item}
-                  </span>
-                ))}
-              </div>
-            </div>
+    <section id="Skills" className="section-pad" style={{ paddingTop: 0 }}>
+      <div className="wrap">
+        <div className="two-col-head">
+          <Reveal>
+            <Eyebrow>03 — Toolbox</Eyebrow>
+            <h2 className="section-title">Skills</h2>
           </Reveal>
-        ))}
+          <Reveal delay={100}>
+            <p className="section-sub">
+              A focused set of tools I reach for to design, build and deploy
+              end-to-end products.
+            </p>
+          </Reveal>
+        </div>
+        <div className="skills-grid">
+          {SKILLS.map((g, i) => (
+            <Reveal key={g.group} delay={(i % 3) * 90}>
+              <div className="card skill-card spot" onMouseMove={spot}>
+                <div className="skill-head">
+                  <span className="skill-ico"><g.icon size={18} strokeWidth={1.7} /></span>
+                  <h3>{g.group}</h3>
+                </div>
+                <div className="pills">
+                  {g.items.map((s) => (
+                    <span key={s} className="pill">{s}</span>
+                  ))}
+                </div>
+              </div>
+            </Reveal>
+          ))}
+        </div>
       </div>
     </section>
-  );
-}
-
-/* ---------- PROJECTS ---------- */
-
-function ProjectCard({ p, index }) {
-  const flip = index % 2 === 1;
-  const rotate = index % 2 === 0 ? -2 : 2;
-  const [hovered, setHovered] = useState(false);
-
-  return (
-    <Reveal delay={index * 100}>
-      <div
-        onMouseEnter={() => setHovered(true)}
-        onMouseLeave={() => setHovered(false)}
-        style={{
-          display: "flex",
-          flexDirection: flip ? "row-reverse" : "row",
-          gap: 32,
-          alignItems: "stretch",
-          background: "#FFFFFF",
-          border: "4px solid #000",
-          borderRadius: 24,
-          boxShadow: hovered ? "16px 16px 0px #000" : "10px 10px 0px #000",
-          padding: 32,
-          transform: hovered
-            ? "translate(-4px,-6px) rotate(0deg)"
-            : `rotate(${rotate}deg)`,
-          transition: "transform 0.25s cubic-bezier(.17,.84,.44,1), box-shadow 0.25s ease",
-          flexWrap: "wrap",
-        }}
-      >
-        <div
-          style={{
-            flex: "1 1 220px",
-            minWidth: 220,
-            borderRadius: 18,
-            border: "4px solid #000",
-            background: p.color,
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            minHeight: 220,
-            position: "relative",
-            overflow: "hidden",
-          }}
-        >
-          <Boxes size={64} color="#111" strokeWidth={1.5} />
-          <span
-            style={{
-              position: "absolute",
-              top: 14,
-              left: 14,
-              background: "#111",
-              color: "#FFF8E8",
-              fontWeight: 800,
-              fontSize: 12,
-              padding: "5px 12px",
-              borderRadius: 999,
-            }}
-          >
-            {p.year}
-          </span>
-        </div>
-
-        <div style={{ flex: "2 1 320px", minWidth: 280 }}>
-          <span
-            style={{
-              display: "inline-block",
-              fontSize: 12,
-              fontWeight: 800,
-              textTransform: "uppercase",
-              letterSpacing: 0.5,
-              color: "#4F7DFF",
-              marginBottom: 8,
-            }}
-          >
-            {p.tag}
-          </span>
-          <h3 style={{ margin: "0 0 12px", fontSize: 28, fontWeight: 900, color: "#111", lineHeight: 1.1 }}>
-            {p.title}
-          </h3>
-          <p style={{ margin: "0 0 16px", color: "#333", fontWeight: 500, lineHeight: 1.6 }}>
-            {p.description}
-          </p>
-          <ul style={{ margin: "0 0 18px", paddingLeft: 20, color: "#111" }}>
-            {p.features.map((f) => (
-              <li key={f} style={{ marginBottom: 6, fontSize: 14.5, fontWeight: 500, lineHeight: 1.5 }}>
-                {f}
-              </li>
-            ))}
-          </ul>
-          <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginBottom: 18 }}>
-            {p.tech.map((t) => (
-              <span
-                key={t}
-                style={{
-                  fontSize: 12,
-                  fontWeight: 800,
-                  border: "2.5px solid #000",
-                  borderRadius: 999,
-                  padding: "4px 12px",
-                  background: "#FFF8E8",
-                }}
-              >
-                {t}
-              </span>
-            ))}
-          </div>
-          <div
-  style={{
-    display: "flex",
-    gap: 12,
-    flexWrap: "wrap",
-    marginTop: 8,
-  }}
->
-  <a
-    href={p.live}
-    target="_blank"
-    rel="noopener noreferrer"
-    style={{
-      display: "inline-flex",
-      alignItems: "center",
-      gap: 8,
-      textDecoration: "none",
-      fontWeight: 800,
-      fontSize: 14,
-      background: "#111",
-      color: "#FFF8E8",
-      padding: hovered ? "12px 26px" : "10px 20px",
-      borderRadius: 12,
-      border: "3px solid #000",
-      transition: "all .25s ease",
-      cursor: "pointer",
-    }}
-  >
-    Live Demo
-    <MoveRight size={16} />
-  </a>
-
-  <a
-    href={p.code}
-    target="_blank"
-    rel="noopener noreferrer"
-    style={{
-      display: "inline-flex",
-      alignItems: "center",
-      gap: 8,
-      textDecoration: "none",
-      fontWeight: 800,
-      fontSize: 14,
-      background: "#FFF8E8",
-      color: "#111",
-      padding: hovered ? "12px 26px" : "10px 20px",
-      borderRadius: 12,
-      border: "3px solid #000",
-      transition: "all .25s ease",
-      cursor: "pointer",
-    }}
-  >
-    <FaGithub size={16} />
-    Source Code
-  </a>
-</div>
-        </div>
-      </div>
-    </Reveal>
   );
 }
 
 function Projects() {
+  const spot = useSpotlight();
   return (
-    <section id="Projects" style={{ padding: "100px 24px" }}>
-      <SectionTitle eyebrow="The good stuff" title="Projects" color="#4F7DFF" />
-      <div style={{ maxWidth: 1000, margin: "0 auto", display: "flex", flexDirection: "column", gap: 56 }}>
-        {PROJECTS.map((p, i) => (
-          <ProjectCard key={p.title} p={p} index={i} />
-        ))}
+    <section id="Projects" className="section-pad" style={{ paddingTop: 0 }}>
+      <div className="wrap">
+        <div className="two-col-head">
+          <Reveal>
+            <Eyebrow>04 — Selected work</Eyebrow>
+            <h2 className="section-title">Projects</h2>
+          </Reveal>
+          <Reveal delay={100}>
+            <p className="section-sub">
+              Four builds spanning distributed systems, computer vision, ML
+              detection and production marketplaces.
+            </p>
+          </Reveal>
+        </div>
+        <div className="projects-list">
+          {PROJECTS.map((p, i) => (
+            <Reveal key={p.title} delay={Math.min(i * 80, 200)}>
+              <article className="card project spot" onMouseMove={spot}>
+                <div className="p-visual" style={{ background: p.tint }}>
+                  <span className="p-num">0{i + 1}</span>
+                  <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", position: "relative", zIndex: 1 }}>
+                    <div className="p-glyph"><Boxes size={26} strokeWidth={1.5} /></div>
+                    <span className="t-year">{p.year}</span>
+                  </div>
+                </div>
+                <div className="p-body">
+                  <span className="p-tag">{p.tag}</span>
+                  <h3>{p.title}</h3>
+                  <p className="p-desc">{p.description}</p>
+                  <ul className="p-feats">
+                    {p.features.map((f) => (
+                      <li key={f}><Check size={14} /> <span>{f}</span></li>
+                    ))}
+                  </ul>
+                  <div className="p-tech">
+                    {p.tech.map((t) => <span key={t}>{t}</span>)}
+                  </div>
+                  <div className="p-actions">
+                    {p.live ? (
+                      <a className="btn btn-primary btn-sm arrow-slide" href={p.live} target="_blank" rel="noreferrer">
+                        Live demo <ArrowUpRight size={14} />
+                      </a>
+                    ) : (
+                      <span className="btn btn-ghost btn-sm" style={{ opacity: 0.55, pointerEvents: "none" }}>
+                        Demo on request
+                      </span>
+                    )}
+                    <a className="btn btn-ghost btn-sm arrow-slide" href={p.code} target="_blank" rel="noreferrer">
+                      <FaGithub size={14} /> Source
+                    </a>
+                  </div>
+                </div>
+              </article>
+            </Reveal>
+          ))}
+        </div>
       </div>
     </section>
   );
 }
-
-/* ---------- EXPERIENCE / POSITIONS ---------- */
 
 function Experience() {
+  const spot = useSpotlight();
   return (
-    <section id="Experience" style={{ padding: "100px 24px" }}>
-      <SectionTitle eyebrow="Leadership" title="Positions of Responsibility" color="#FFD43B" />
-      <div style={{ maxWidth: 720, margin: "0 auto", display: "flex", flexDirection: "column", gap: 24 }}>
-        {POSITIONS.map((pos, i) => (
-          <Reveal key={pos.org} delay={i * 120}>
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                gap: 20,
-                background: "#FFFFFF",
-                border: "4px solid #000",
-                borderRadius: 20,
-                boxShadow: "8px 8px 0px #000",
-                padding: 26,
-              }}
-            >
-              <div
-                style={{
-                  width: 56,
-                  height: 56,
-                  flexShrink: 0,
-                  borderRadius: 14,
-                  background: pos.color,
-                  border: "3px solid #000",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-              >
-                <Star size={26} color="#111" />
+    <section id="Experience" className="section-pad" style={{ paddingTop: 0 }}>
+      <div className="wrap split">
+        <div className="split-sticky">
+          <Reveal>
+            <Eyebrow>05 — Leadership</Eyebrow>
+            <h2 className="section-title">Experience</h2>
+            <p className="section-sub" style={{ marginTop: 12 }}>
+              Positions of responsibility across developer communities at NIT Surat.
+            </p>
+          </Reveal>
+        </div>
+        <div className="exp-list">
+          {POSITIONS.map((pos, i) => (
+            <Reveal key={pos.org} delay={i * 100}>
+              <div className="card exp-item spot" onMouseMove={spot}>
+                <div className="exp-dot"><Check size={18} /></div>
+                <div>
+                  <h3>{pos.role}</h3>
+                  <p>{pos.org}</p>
+                </div>
+                <span className="exp-period">{pos.period}</span>
               </div>
-              <div>
-                <h3 style={{ margin: 0, fontWeight: 900, fontSize: 19 }}>{pos.role}</h3>
-                <p style={{ margin: "4px 0 0", color: "#444", fontWeight: 600 }}>{pos.org}</p>
-                <p style={{ margin: "2px 0 0", color: "#888", fontSize: 13, fontWeight: 700 }}>{pos.period}</p>
-              </div>
+            </Reveal>
+          ))}
+          <Reveal delay={200}>
+            <div className="card avail-card">
+              <p>
+                <span className="avail-live"><span className="dot" /> Open to internships — </span>
+                SWE, full-stack or ML-adjacent roles starting 2026. Fast learner,
+                comfortable owning features end-to-end.
+              </p>
             </div>
           </Reveal>
-        ))}
+        </div>
       </div>
     </section>
   );
 }
 
-/* ---------- CONTACT ---------- */
-
-function Contact() {
+function Contact({ notify }) {
+  const [copied, setCopied] = useState(false);
+  const spot = useSpotlight();
   const cards = [
-    {
-      icon: Phone,
-      label: "Phone",
-      value: PROFILE.phone,
-      href: `tel:${PROFILE.phone}`,
-      color: "#4F7DFF",
-    },
-    {
-      icon: Mail,
-      label: "Email",
-      value: PROFILE.email,
-      href: `mailto:${PROFILE.email}`,
-      color: "#FFD43B",
-    },
-    {
-      icon: FaGithub,
-      label: "GitHub",
-      value: "View Profile",
-      href: "https://github.com/Aryanftw",
-      color: "#FF8A65",
-    },
-    {
-      icon: FaLinkedin,
-      label: "LinkedIn",
-      value: "Connect",
-      href: "https://www.linkedin.com/in/aryan-parmar-90b10a324/",
-      color: "#7C4DFF",
-    },
-    {
-      icon: SiLeetcode,
-      label: "Leetcode",
-      value: "view Profile",
-      href: "https://leetcode.com/u/Ichigo_123/",
-      color: "#FFA116",
-    }
+    { icon: Phone, label: "Phone", value: PROFILE.phone, href: `tel:${PROFILE.phone.replace(/[^+\d]/g, "")}` },
+    { icon: Mail, label: "Email", value: PROFILE.email, href: `mailto:${PROFILE.email}` },
+    { icon: FaGithub, label: "GitHub", value: "@Aryanftw", href: PROFILE.github },
+    { icon: FaLinkedin, label: "LinkedIn", value: "Connect", href: PROFILE.linkedin },
+    { icon: SiLeetcode, label: "LeetCode", value: "View profile", href: PROFILE.leetcode },
   ];
+
+  const copyEmail = async () => {
+    try {
+      await navigator.clipboard.writeText(PROFILE.email);
+    } catch {
+      const ta = document.createElement("textarea");
+      ta.value = PROFILE.email;
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand("copy");
+      document.body.removeChild(ta);
+    }
+    setCopied(true);
+    notify("Email copied to clipboard");
+    setTimeout(() => setCopied(false), 1800);
+  };
+
   return (
-    <section id="Contact" style={{ padding: "100px 24px 140px" }}>
-      <SectionTitle eyebrow="Let's talk" title="Contact" color="#FF8A65" />
-      <div
-        style={{
-          maxWidth: 900,
-          margin: "0 auto",
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
-          gap: 22,
-        }}
-      >
-        {cards.map((c, i) => (
-          <Reveal key={c.label} delay={i * 90}>
-            <a
-              href={c.href}
-              target={c.href.startsWith("http") ? "_blank" : undefined}
-              rel="noreferrer"
-              style={{
-                display: "block",
-                textDecoration: "none",
-                color: "#111",
-                background: "#FFFFFF",
-                border: "4px solid #000",
-                borderRadius: 20,
-                boxShadow: "8px 8px 0px #000",
-                padding: 26,
-                transition: "transform 0.18s ease, box-shadow 0.18s ease",
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.transform = "translate(-4px,-4px)";
-                e.currentTarget.style.boxShadow = "12px 12px 0px #000";
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.transform = "translate(0,0)";
-                e.currentTarget.style.boxShadow = "8px 8px 0px #000";
-              }}
-            >
-              <div
-                style={{
-                  width: 46,
-                  height: 46,
-                  borderRadius: 12,
-                  background: c.color,
-                  border: "3px solid #000",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  marginBottom: 16,
-                }}
-              >
-                <c.icon size={22} color="#111" />
-              </div>
-              <p style={{ margin: 0, fontWeight: 800, fontSize: 13, textTransform: "uppercase", color: "#888" }}>
-                {c.label}
-              </p>
-              <p style={{ margin: "4px 0 0", fontWeight: 800, fontSize: 16, wordBreak: "break-word" }}>
-                {c.value} <ArrowUpRight size={14} style={{ display: "inline" }} />
-              </p>
-            </a>
-          </Reveal>
-        ))}
+    <section id="Contact" className="section-pad" style={{ paddingTop: 0 }}>
+      <div className="wrap">
+        <Reveal>
+          <div className="contact-hero spot" onMouseMove={spot}>
+            <Eyebrow>06 — Contact</Eyebrow>
+            <h2>Have an idea?<br /><em>Let’s build it.</em></h2>
+            <p className="contact-sub">
+              I’m currently looking for a software engineering internship.
+              My inbox is always open — I usually reply within a day.
+            </p>
+            <div style={{ display: "flex", gap: 10, justifyContent: "center", flexWrap: "wrap" }}>
+              <Magnetic>
+                <a className="btn btn-primary" href={`mailto:${PROFILE.email}`}>
+                  <Mail size={16} /> {PROFILE.email}
+                </a>
+              </Magnetic>
+              <Magnetic>
+                <button className="btn btn-ghost" onClick={copyEmail}>
+                  {copied ? <Check size={16} /> : <Copy size={16} />}
+                  {copied ? "Copied" : "Copy email"}
+                </button>
+              </Magnetic>
+              <Magnetic>
+                <a className="btn btn-ghost" href={PROFILE.resume} download>
+                  <FileText size={16} /> Résumé
+                </a>
+              </Magnetic>
+            </div>
+            <div className="contact-grid">
+              {cards.map((c) => (
+                <a key={c.label} href={c.href} target={c.href.startsWith("http") ? "_blank" : undefined} rel="noreferrer" className="card contact-card spot" onMouseMove={spot}>
+                  <span className="c-ico"><c.icon size={17} /></span>
+                  <b>{c.label}</b>
+                  <span>{c.value} <ArrowUpRight size={13} /></span>
+                </a>
+              ))}
+            </div>
+          </div>
+        </Reveal>
       </div>
     </section>
   );
 }
 
-/* ---------- ROOT APP ---------- */
+function Footer({ onNav }) {
+  const [time, setTime] = useState("");
+  useEffect(() => {
+    const fmt = new Intl.DateTimeFormat("en-IN", {
+      hour: "2-digit", minute: "2-digit", timeZone: "Asia/Kolkata",
+    });
+    const update = () => setTime(`${fmt.format(new Date())} IST`);
+    update();
+    const id = setInterval(update, 20000);
+    return () => clearInterval(id);
+  }, []);
+  return (
+    <footer className="footer">
+      <div className="wrap footer-inner">
+        <p>© 2026 Aryan Parmar · Surat, India · <span className="live-time">{time}</span></p>
+        <div style={{ display: "flex", gap: 10, alignItems: "center" }}>
+          <a href={PROFILE.github} target="_blank" rel="noreferrer" className="to-top" aria-label="GitHub"><FaGithub size={16} /></a>
+          <a href={PROFILE.linkedin} target="_blank" rel="noreferrer" className="to-top" aria-label="LinkedIn"><FaLinkedin size={16} /></a>
+          <button className="to-top" onClick={() => onNav("Home")} aria-label="Back to top"><ArrowUp size={16} /></button>
+        </div>
+      </div>
+    </footer>
+  );
+}
+
+/* ---------- ROOT ---------- */
 
 export default function Portfolio() {
   const [active, setActive] = useState("Home");
+  const [loading, setLoading] = useState(true);
+  const [loaderGone, setLoaderGone] = useState(false);
+  const [toast, setToast] = useState("");
+  const [theme, setTheme] = useState(getInitialTheme);
+
+  /* Apply day/night mode: <html data-theme>, persistence, browser chrome */
+  useEffect(() => {
+    document.documentElement.setAttribute("data-theme", theme);
+    try {
+      window.localStorage.setItem("ap-theme", theme);
+    } catch { /* ignore */ }
+    const meta = document.querySelector('meta[name="theme-color"]');
+    if (meta) meta.setAttribute("content", theme === "dark" ? "#0f0f0d" : "#fafaf7");
+  }, [theme]);
+
+  /* Follow OS changes only until the user picks manually */
+  useEffect(() => {
+    const mq = window.matchMedia("(prefers-color-scheme: dark)");
+    const onChange = (e) => {
+      try {
+        if (!window.localStorage.getItem("ap-theme")) {
+          setTheme(e.matches ? "dark" : "light");
+        }
+      } catch {
+        setTheme(e.matches ? "dark" : "light");
+      }
+    };
+    if (mq.addEventListener) mq.addEventListener("change", onChange);
+    else mq.addListener(onChange);
+    return () => {
+      if (mq.removeEventListener) mq.removeEventListener("change", onChange);
+      else mq.removeListener(onChange);
+    };
+  }, []);
+
+  const toggleTheme = useCallback(() => {
+    setTheme((t) => (t === "dark" ? "light" : "dark"));
+  }, []);
+
+  const notify = useCallback((msg) => {
+    setToast(msg);
+  }, []);
+
+  useEffect(() => {
+    if (!toast) return;
+    const id = setTimeout(() => setToast(""), 2200);
+    return () => clearTimeout(id);
+  }, [toast]);
+
+  /* Loader lifecycle: minimum display, then curtain exit */
+  useEffect(() => {
+    document.body.style.overflow = "hidden";
+    const t1 = setTimeout(() => {
+      setLoading(false);
+      document.body.style.overflow = "";
+    }, 1500);
+    const t2 = setTimeout(() => setLoaderGone(true), 2150);
+    return () => {
+      clearTimeout(t1);
+      clearTimeout(t2);
+      document.body.style.overflow = "";
+    };
+  }, []);
 
   const scrollTo = (id) => {
     const el = document.getElementById(id);
@@ -1018,45 +963,32 @@ export default function Portfolio() {
           if (entry.isIntersecting) setActive(entry.target.id);
         });
       },
-      { rootMargin: "-45% 0px -45% 0px" }
+      { rootMargin: "-40% 0px -55% 0px" }
     );
     sections.forEach((s) => obs.observe(s));
     return () => obs.disconnect();
-  }, []);
+  }, [loaderGone]);
 
   return (
-    <div style={{ background: "#FFF8E8", minHeight: "100vh", fontFamily: "Arial, Helvetica, sans-serif" }}>
-      <style>{`
-        @keyframes floaty {
-          0%, 100% { transform: translateY(0px) rotate(0deg); }
-          50% { transform: translateY(-22px) rotate(8deg); }
-        }
-        * { box-sizing: border-box; }
-        html { scroll-behavior: smooth; }
-      `}</style>
-
-      <Navbar active={active} onNav={scrollTo} />
-      <Hero scrollTo={scrollTo} />
-      <About />
-      <Education />
-      <Skills />
-      <Projects />
-      <Experience />
-      <Contact />
-
-      <footer
-        style={{
-          textAlign: "center",
-          padding: "30px 20px",
-          borderTop: "4px solid #000",
-          fontWeight: 800,
-          fontSize: 14,
-          background: "#111",
-          color: "#FFF8E8",
-        }}
-      >
-        Built with intent · Aryan © 2026
-      </footer>
+    <div style={{ minHeight: "100vh" }}>
+      {!loaderGone && <Loader exiting={!loading} />}
+      <ScrollProgress />
+      <Navbar active={active} onNav={scrollTo} theme={theme} onToggleTheme={toggleTheme} />
+      <main>
+        <Hero onNav={scrollTo} ready={!loading} />
+        <StackStrip />
+        <About />
+        <Education />
+        <Skills />
+        <Projects />
+        <Experience />
+        <Contact notify={notify} />
+      </main>
+      <Footer onNav={scrollTo} />
+      <BackToTop />
+      <div className={`toast ${toast ? "show" : ""}`} role="status">
+        <Check size={14} /> {toast}
+      </div>
     </div>
   );
 }
