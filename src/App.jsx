@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import {
   Mail,
   Phone,
@@ -6,14 +6,12 @@ import {
   ArrowUpRight,
   ArrowUp,
   ArrowRight,
-  GraduationCap,
   Code2,
   Boxes,
   Database,
   Layers,
   Wrench,
   Cpu,
-  MapPin,
   Check,
   Menu,
   X,
@@ -31,8 +29,8 @@ const PROFILE = {
   role: "Software Engineer — Full-stack & ML Systems",
   phone: "+91-9408744422",
   email: "ap890383@gmail.com",
-  location: "Surat, Gujarat — India",
-  school: "SVNIT Surat · B.Tech ECE '27",
+  location: "Surat, Gujarat · India",
+  school: "SVNIT Surat · B.Tech ECE ’27",
   github: "https://github.com/Aryanftw",
   linkedin: "https://www.linkedin.com/in/aryan-parmar-90b10a324/",
   leetcode: "https://leetcode.com/u/Ichigo_123/",
@@ -42,34 +40,47 @@ const PROFILE = {
 const EDUCATION = [
   {
     school: "National Institute of Technology, Surat",
-    location: "Surat, Gujarat, India",
     degree: "B.Tech — Electronics & Communication Engineering",
     detail: "CGPA 7.37 / 10",
+    location: "Surat, Gujarat",
     year: "2023 — Present",
+    note: "In progress",
   },
   {
     school: "GSHSEB Board",
-    location: "Gujarat, India",
     degree: "Higher Secondary Education (Class XII)",
     detail: "77%",
+    location: "Gujarat",
     year: "2023",
   },
   {
     school: "GSEB Board",
-    location: "Gujarat, India",
     degree: "Secondary Education (Class X)",
     detail: "76%",
+    location: "Gujarat",
     year: "2021",
   },
 ];
 
 const SKILLS = [
   { group: "Languages", icon: Code2, items: ["C++", "JavaScript", "Python", "SQL"] },
-  { group: "Frameworks & Libraries", icon: Layers, items: ["Node.js", "Express.js", "Next.js", "React.js", "Socket.IO", "FastAPI", "Tailwind CSS"] },
+  {
+    group: "Frameworks & Libraries",
+    icon: Layers,
+    items: ["Node.js", "Express.js", "Next.js", "React.js", "Socket.IO", "FastAPI", "Tailwind CSS"],
+  },
   { group: "Databases", icon: Database, items: ["PostgreSQL", "MongoDB", "MySQL", "Redis"] },
   { group: "ORMs", icon: Boxes, items: ["Prisma", "Mongoose"] },
-  { group: "Core Concepts", icon: Cpu, items: ["DSA", "REST API Design", "System Design", "OOP", "DBMS", "OS", "Networks"] },
-  { group: "Testing & Tooling", icon: Wrench, items: ["Unit & Integration Testing", "Postman", "Git", "GitHub", "Docker", "VS Code", "Vercel"] },
+  {
+    group: "Core Concepts",
+    icon: Cpu,
+    items: ["DSA", "REST API Design", "System Design", "OOP", "DBMS", "OS", "Networks"],
+  },
+  {
+    group: "Testing & Tooling",
+    icon: Wrench,
+    items: ["Unit & Integration Testing", "Postman", "Git", "GitHub", "Docker", "VS Code", "Vercel"],
+  },
 ];
 
 const PROJECTS = [
@@ -77,14 +88,15 @@ const PROJECTS = [
     title: "QueueForge — Distributed Job Processing",
     tag: "Systems · 2026",
     year: "2026",
-    tint: "#EFF1EC",
+    tint: "#e9e7dc",
+    viz: "queue",
     description:
       "A scalable distributed background-job system built from scratch on Node.js and Redis — no BullMQ, no Agenda.",
     features: [
-      "Four-process architecture: Producer, Worker, Scheduler, Dashboard with concurrent multi-worker ownership",
+      "Four-process architecture: Producer, Worker, Scheduler and Dashboard, with concurrent multi-worker ownership",
       "Priority queues, delayed jobs, exponential-backoff retries and dead-letter queues for failure stability",
-      "8+ REST APIs over Redis lists, hashes and sorted sets — validated against 1,000+ simulated jobs",
-      "React operations dashboard with Recharts: throughput, worker activity, failures, queue depth",
+      "8+ REST APIs over Redis lists, hashes and sorted sets, validated against 1,000+ simulated jobs",
+      "React operations dashboard with Recharts: throughput, worker activity, failures and queue depth",
     ],
     tech: ["Node.js", "Redis", "React.js", "REST API", "Recharts"],
     live: "",
@@ -94,11 +106,12 @@ const PROJECTS = [
     title: "Real-Time Traffic Violation Detection",
     tag: "Computer Vision · 2026",
     year: "2026",
-    tint: "#F2EFE8",
+    tint: "#e6e8e4",
+    viz: "frame",
     description:
-      "Dual-model YOLOv8 pipeline spotting helmet violations, triple riding and licence plates in real time.",
+      "A dual-model YOLOv8 pipeline spotting helmet violations, triple riding and licence plates in real time.",
     features: [
-      "YOLOv8 + OpenCV + EasyOCR detection pipeline for helmet, triple-riding and plate recognition",
+      "YOLOv8 + OpenCV + EasyOCR pipeline for helmet, triple-riding and plate recognition",
       "Evaluation framework across 1,000+ annotated frames to measure detection accuracy",
       "Automatic violation logging with visual evidence for audit trails",
     ],
@@ -110,13 +123,14 @@ const PROJECTS = [
     title: "Fake Social Media Account Detection",
     tag: "Echelon Hackathon · ML",
     year: "2026",
-    tint: "#F2F0EB",
+    tint: "#eae6e0",
+    viz: "signal",
     description:
       "Behavioural modelling fused with NLP profile analysis to flag fake accounts with measurable accuracy.",
     features: [
       "Random Forest on behavioural features combined with BERT-based profile text classification",
-      "15+ engineered linguistic features via TextStat for bot-vs-human signal",
-      "FastAPI backend with Streamlit dashboard for real-time predictions and metrics",
+      "15+ engineered linguistic features via TextStat for bot-versus-human signal",
+      "FastAPI backend with a Streamlit dashboard for real-time predictions and metrics",
     ],
     tech: ["Python", "Random Forest", "BERT", "FastAPI", "Streamlit", "TextStat"],
     live: "",
@@ -126,7 +140,8 @@ const PROJECTS = [
     title: "Helper Buddy — Service Booking Platform",
     tag: "GWOC · Full-stack",
     year: "2025",
-    tint: "#EFEEF3",
+    tint: "#e5e6ea",
+    viz: "ui",
     description:
       "A production service-booking marketplace built with a team across 10+ responsive pages.",
     features: [
@@ -152,14 +167,21 @@ const POSITIONS = [
   },
 ];
 
+const PRINCIPLES = [
+  "Distributed systems: queues, retries and dead-letter paths",
+  "Vision & ML: YOLOv8, BERT, FastAPI pipelines",
+  "Full-stack product work: Next.js, Express, Prisma",
+  "Data modelling first: PostgreSQL, Redis, MongoDB",
+];
+
 const STACK_STRIP = [
-  "Node.js", "React", "Next.js", "Python", "Redis",
-  "PostgreSQL", "MongoDB", "YOLOv8", "FastAPI", "Docker", "Prisma", "Tailwind",
+  "Node.js", "React", "Next.js", "Python", "Redis", "PostgreSQL",
+  "MongoDB", "YOLOv8", "FastAPI", "Docker", "Prisma", "Tailwind",
 ];
 
 const NAV = ["Home", "About", "Education", "Skills", "Projects", "Experience", "Contact"];
 
-/* ---------- HOOKS ---------- */
+/* ---------- HOOKS & PRIMITIVES ---------- */
 
 function useReveal() {
   const ref = useRef(null);
@@ -174,7 +196,7 @@ function useReveal() {
           obs.unobserve(el);
         }
       },
-      { threshold: 0.12 }
+      { threshold: 0.1, rootMargin: "0px 0px -40px 0px" }
     );
     obs.observe(el);
     return () => obs.disconnect();
@@ -182,26 +204,21 @@ function useReveal() {
   return [ref, visible];
 }
 
-function Reveal({ children, delay = 0, className = "", style = {} }) {
+function Reveal({ children, delay = 0, className = "", as: Tag = "div", ...rest }) {
   const [ref, visible] = useReveal();
   return (
-    <div
+    <Tag
       ref={ref}
-      className={`reveal ${className}`}
-      style={{
-        transform: visible ? "translateY(0)" : "translateY(24px)",
-        opacity: visible ? 1 : 0,
-        transition: `opacity .7s cubic-bezier(.22,1,.36,1) ${delay}ms, transform .7s cubic-bezier(.22,1,.36,1) ${delay}ms`,
-        ...style,
-      }}
+      className={`reveal ${visible ? "in" : ""} ${className}`}
+      style={{ "--d": `${delay}ms` }}
+      {...rest}
     >
       {children}
-    </div>
+    </Tag>
   );
 }
 
-/* Animated number: counts up when `active` becomes true */
-function useCountUp(target, active, duration = 1400) {
+function useCountUp(target, active, duration = 1300) {
   const [val, setVal] = useState(0);
   useEffect(() => {
     if (!active) return;
@@ -209,8 +226,7 @@ function useCountUp(target, active, duration = 1400) {
     const t0 = performance.now();
     const tick = (t) => {
       const p = Math.min((t - t0) / duration, 1);
-      const eased = 1 - Math.pow(1 - p, 3);
-      setVal(target * eased);
+      setVal(target * (1 - Math.pow(1 - p, 3)));
       if (p < 1) raf = requestAnimationFrame(tick);
     };
     raf = requestAnimationFrame(tick);
@@ -221,16 +237,19 @@ function useCountUp(target, active, duration = 1400) {
 
 function Stat({ value, suffix = "", decimals = 0, label, active }) {
   const v = useCountUp(value, active);
-  const text = decimals > 0 ? v.toFixed(decimals) : Math.round(v).toString().padStart(2, "0");
+  const text =
+    decimals > 0 ? v.toFixed(decimals) : Math.round(v).toString().padStart(2, "0");
   return (
-    <div className="hero-stat">
-      <b style={{ fontVariantNumeric: "tabular-nums" }}>{text}{suffix}</b>
+    <div className="stat">
+      <b>
+        {text}
+        {suffix}
+      </b>
       <span>{label}</span>
     </div>
   );
 }
 
-/* Magnetic hover wrapper — subtle pull toward cursor */
 function Magnetic({ children, strength = 6 }) {
   const ref = useRef(null);
   const onMove = (e) => {
@@ -251,7 +270,6 @@ function Magnetic({ children, strength = 6 }) {
   );
 }
 
-/* Card spotlight — soft radial glow following the cursor */
 function useSpotlight() {
   return useCallback((e) => {
     const el = e.currentTarget;
@@ -261,40 +279,41 @@ function useSpotlight() {
   }, []);
 }
 
-function Eyebrow({ children }) {
+function Eyebrow({ idx, children }) {
   return (
-    <div className="eyebrow-row">
-      <span className="eyebrow-line" />
-      <span className="small-caps">{children}</span>
+    <div className="eyebrow">
+      <span className="idx">{idx}</span>
+      <span>{children}</span>
     </div>
   );
 }
 
-/* ---------- DAY / NIGHT ---------- */
+/* ---------- THEME ---------- */
 
 function getInitialTheme() {
   if (typeof window === "undefined") return "light";
   try {
     const saved = window.localStorage.getItem("ap-theme");
     if (saved === "light" || saved === "dark") return saved;
-  } catch { /* ignore */ }
-  if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) {
-    return "dark";
+  } catch {
+    /* ignore */
   }
-  return "light";
+  return window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches
+    ? "dark"
+    : "light";
 }
 
-function ThemeToggle({ theme, onToggle, label }) {
+function ThemeToggle({ theme, onToggle }) {
   const isDark = theme === "dark";
   return (
     <button
       className="theme-toggle"
       onClick={onToggle}
-      aria-label={label || (isDark ? "Switch to day mode" : "Switch to night mode")}
+      aria-label={isDark ? "Switch to day mode" : "Switch to night mode"}
       title={isDark ? "Switch to day mode" : "Switch to night mode"}
     >
-      <Sun size={17} className="ti ti-sun" />
-      <Moon size={17} className="ti ti-moon" />
+      <Sun size={16} className="ti ti-sun" aria-hidden="true" />
+      <Moon size={16} className="ti ti-moon" aria-hidden="true" />
     </button>
   );
 }
@@ -306,7 +325,7 @@ function Loader({ exiting }) {
   useEffect(() => {
     let raf;
     const t0 = performance.now();
-    const dur = 1300;
+    const dur = 1250;
     const tick = (t) => {
       const p = Math.min((t - t0) / dur, 1);
       setPct(Math.round((1 - Math.pow(1 - p, 2)) * 100));
@@ -330,7 +349,7 @@ function Loader({ exiting }) {
   );
 }
 
-/* ---------- SCROLLER ---------- */
+/* ---------- FLOATING UI ---------- */
 
 function ScrollProgress() {
   const ref = useRef(null);
@@ -362,7 +381,7 @@ function ScrollProgress() {
 function BackToTop() {
   const [show, setShow] = useState(false);
   useEffect(() => {
-    const onScroll = () => setShow(window.scrollY > 700);
+    const onScroll = () => setShow(window.scrollY > 800);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
@@ -374,15 +393,16 @@ function BackToTop() {
       aria-label="Back to top"
       tabIndex={show ? 0 : -1}
     >
-      <ArrowUp size={17} />
+      <ArrowUp size={17} aria-hidden="true" />
     </button>
   );
 }
 
-/* ---------- NAV ---------- */
+/* ---------- NAVIGATION ---------- */
 
 function Navbar({ active, onNav, theme, onToggleTheme }) {
   const [open, setOpen] = useState(false);
+  const [closing, setClosing] = useState(false);
   const [hidden, setHidden] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const lastY = useRef(0);
@@ -391,77 +411,192 @@ function Navbar({ active, onNav, theme, onToggleTheme }) {
     const onScroll = () => {
       const y = window.scrollY;
       setScrolled(y > 24);
-      if (y > 320 && y > lastY.current + 4 && !open) setHidden(true);
-      else if (y < lastY.current - 4 || y < 320) setHidden(false);
+      if (y > 360 && y > lastY.current + 4 && !open) setHidden(true);
+      else if (y < lastY.current - 4 || y < 360) setHidden(false);
       lastY.current = y;
     };
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
-  }, [open ]);
+  }, [open]);
+
+  useEffect(() => {
+    document.body.classList.toggle("no-scroll", open);
+    return () => document.body.classList.remove("no-scroll");
+  }, [open]);
+
+  const requestClose = useCallback(() => {
+    setClosing(true);
+    window.setTimeout(() => {
+      setOpen(false);
+      setClosing(false);
+    }, 240);
+  }, []);
+
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (e) => {
+      if (e.key === "Escape") requestClose();
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [open, requestClose]);
 
   const go = (id) => {
-    setOpen(false);
+    if (open) requestClose();
     onNav(id);
   };
 
   return (
-    <div className={`nav-shell ${hidden ? "nav-hidden" : ""}`}>
-      <div style={{ width: "min(1120px, 100%)", pointerEvents: "auto" }}>
+    <>
+      <div className={`nav-shell ${hidden && !open ? "nav-hidden" : ""}`}>
         <nav className={`nav ${scrolled ? "nav-scrolled" : ""}`} aria-label="Primary">
-          <a href="#Home" onClick={(e) => { e.preventDefault(); go("Home"); }} className="brand">
-            <span className="brand-mark">A</span>
-            <span>
-              <span className="brand-name">Aryan Parmar</span>
+          <a
+            href="#Home"
+            onClick={(e) => {
+              e.preventDefault();
+              go("Home");
+            }}
+            className="brand"
+          >
+            <span className="brand-mark" aria-hidden="true">A</span>
+            <span className="brand-text">
+              <span className="brand-name">{PROFILE.name}</span>
               <span className="brand-sub">Portfolio ’26</span>
             </span>
           </a>
+
           <div className="nav-links">
             {NAV.map((item) => (
               <button
                 key={item}
                 onClick={() => go(item)}
                 className={`nav-link ${active === item ? "active" : ""}`}
+                aria-current={active === item ? "true" : undefined}
               >
                 {item}
               </button>
             ))}
           </div>
-          <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
+
+          <div className="nav-actions">
             <ThemeToggle theme={theme} onToggle={onToggleTheme} />
             <Magnetic>
-              <button className="btn btn-primary btn-sm nav-cta" onClick={() => go("Contact")}>
-                Let’s talk <ArrowUpRight size={15} />
+              <button className="btn btn-solid btn-sm nav-cta no-shift" onClick={() => go("Contact")}>
+                Let’s talk <ArrowRight size={14} aria-hidden="true" />
               </button>
             </Magnetic>
-            <button className="hamburger" onClick={() => setOpen((v) => !v)} aria-label="Menu">
-              {open ? <X size={18} /> : <Menu size={18} />}
+            <button
+              className="hamburger"
+              onClick={() => (open ? requestClose() : setOpen(true))}
+              aria-label={open ? "Close menu" : "Open menu"}
+              aria-expanded={open}
+            >
+              {open ? <X size={18} aria-hidden="true" /> : <Menu size={18} aria-hidden="true" />}
             </button>
           </div>
         </nav>
-        {open && (
-          <div className="mobile-menu">
+      </div>
+
+      {open && (
+        <div className={`mobile-menu ${closing ? "closing" : ""}`}>
+          <nav aria-label="Mobile">
             {NAV.map((item, i) => (
               <button
                 key={item}
                 onClick={() => go(item)}
-                className={`${active === item ? "active" : ""} m-item`}
-                style={{ animationDelay: `${i * 35}ms` }}
+                className={`m-item ${active === item ? "active" : ""}`}
+                style={{ animationDelay: `${60 + i * 40}ms` }}
+                aria-current={active === item ? "true" : undefined}
               >
                 <span className="m-index">0{i + 1}</span> {item}
               </button>
             ))}
-            <div className="mobile-menu-foot">
-              <span>{theme === "dark" ? "Night mode" : "Day mode"}</span>
+          </nav>
+          <div className="mobile-menu-foot">
+            <span className="mm-meta">
+              {theme === "dark" ? "Night mode" : "Day mode"} · Surat, India
+            </span>
+            <div className="mm-socials">
+              <a
+                className="icon-btn"
+                href={PROFILE.github}
+                target="_blank"
+                rel="noreferrer"
+                aria-label="GitHub profile"
+              >
+                <FaGithub size={15} aria-hidden="true" />
+              </a>
+              <a
+                className="icon-btn"
+                href={PROFILE.linkedin}
+                target="_blank"
+                rel="noreferrer"
+                aria-label="LinkedIn profile"
+              >
+                <FaLinkedin size={15} aria-hidden="true" />
+              </a>
               <ThemeToggle theme={theme} onToggle={onToggleTheme} />
             </div>
           </div>
-        )}
-      </div>
-    </div>
+        </div>
+      )}
+    </>
   );
 }
 
 /* ---------- HERO ---------- */
+
+function SignaturePlate({ onNav, ready }) {
+  return (
+    <Reveal delay={180} className={`sig-wrap ${ready ? "" : "pre"}`}>
+      <aside className="sig" aria-label="Profile summary">
+        <div className="sig-canvas">
+          <span className="sig-corner tl">Portfolio ’26</span>
+          <span className="sig-corner tr">Surat · IN</span>
+          <svg className="sig-ring" viewBox="0 0 200 200" aria-hidden="true">
+            <circle cx="100" cy="100" r="92" />
+          </svg>
+          <div className="sig-mark" aria-hidden="true">
+            A<i>P</i>
+          </div>
+          <span className="sig-corner bl">21.17° N</span>
+          <span className="sig-corner br">72.83° E</span>
+        </div>
+        <dl className="sig-rows">
+          <div className="sig-row">
+            <dt>Based</dt>
+            <dd>{PROFILE.location}</dd>
+          </div>
+          <div className="sig-row">
+            <dt>Education</dt>
+            <dd>{PROFILE.school}</dd>
+          </div>
+          <div className="sig-row">
+            <dt>Focus</dt>
+            <dd>Distributed systems · Full-stack · ML</dd>
+          </div>
+          <div className="sig-row">
+            <dt>Status</dt>
+            <dd>
+              <span className="live">
+                <span className="dot" aria-hidden="true" />
+                Open to SWE internships
+              </span>
+            </dd>
+          </div>
+        </dl>
+        <div className="sig-cta">
+          <button className="btn btn-solid btn-sm" onClick={() => onNav("Projects")}>
+            View work <ArrowRight size={14} aria-hidden="true" />
+          </button>
+          <button className="btn btn-line btn-sm" onClick={() => onNav("Contact")}>
+            Contact
+          </button>
+        </div>
+      </aside>
+    </Reveal>
+  );
+}
 
 function Hero({ onNav, ready }) {
   return (
@@ -469,33 +604,36 @@ function Hero({ onNav, ready }) {
       <div className="wrap hero-grid">
         <div className={`hero-enter ${ready ? "in" : ""}`}>
           <div className="he he-1">
-            <span className="status-pill">
-              <span className="dot" /> Available for SWE internships · 2026
+            <span className="hero-status">
+              <span className="dot" aria-hidden="true" />
+              Available for SWE internships · 2026
             </span>
           </div>
           <h1 className="display he he-2">
-            Building <em>quiet,</em><br />
-            capable software<br />
-            that ships.
+            Building software
+            <br />
+            that stays <em>calm</em>
+            <br />
+            under pressure.
           </h1>
           <p className="lede hero-lede he he-3">
             I’m {PROFILE.name} — an ECE undergrad at SVNIT Surat working across
-            distributed backends, full-stack platforms and ML vision systems.
+            distributed backends, full-stack products and ML vision systems.
           </p>
           <div className="hero-ctas he he-4">
             <Magnetic>
-              <a className="btn btn-primary" href={PROFILE.resume} download>
-                <FileText size={16} /> Download Résumé
-              </a>
+              <button className="btn btn-solid" onClick={() => onNav("Projects")}>
+                Selected work <ArrowRight size={15} aria-hidden="true" />
+              </button>
             </Magnetic>
             <Magnetic>
-              <a className="btn btn-ghost" href={PROFILE.github} target="_blank" rel="noreferrer">
-                <FaGithub size={16} /> GitHub
-              </a>
+              <button className="btn btn-line" onClick={() => onNav("Contact")}>
+                Get in touch
+              </button>
             </Magnetic>
             <Magnetic>
-              <a className="btn btn-ghost" href={PROFILE.linkedin} target="_blank" rel="noreferrer">
-                <FaLinkedin size={16} /> LinkedIn
+              <a className="btn btn-quiet" href={PROFILE.resume} download>
+                <FileText size={15} aria-hidden="true" /> Résumé
               </a>
             </Magnetic>
           </div>
@@ -506,35 +644,14 @@ function Hero({ onNav, ready }) {
           </div>
         </div>
 
-        <Reveal delay={200} className={`hero-card-wrap ${ready ? "" : "pre"}`}>
-          <aside className="profile-card spot" aria-label="Profile summary">
-            <div className="profile-top">
-              <div className="avatar">A</div>
-              <div>
-                <h3>{PROFILE.name}</h3>
-                <p>{PROFILE.role}</p>
-              </div>
-            </div>
-            <div className="profile-rows">
-              <div className="profile-row"><MapPin size={15} /> {PROFILE.location}</div>
-              <div className="profile-row"><GraduationCap size={15} /> {PROFILE.school}</div>
-              <div className="profile-row"><Mail size={15} /> {PROFILE.email}</div>
-              <div className="profile-row"><Phone size={15} /> {PROFILE.phone}</div>
-            </div>
-            <div className="profile-cta">
-              <button className="btn btn-primary btn-sm" onClick={() => onNav("Projects")}>
-                View work <ArrowRight size={14} />
-              </button>
-              <button className="btn btn-ghost btn-sm" onClick={() => onNav("Contact")}>
-                Contact
-              </button>
-            </div>
-          </aside>
-        </Reveal>
+        <SignaturePlate onNav={onNav} ready={ready} />
       </div>
-      <div className="scroll-hint" aria-hidden="true">
-        <span className="scroll-mouse"><span className="scroll-wheel" /></span>
-        <span>Scroll</span>
+
+      <div className="wrap">
+        <div className="scroll-hint he he-6" aria-hidden="true">
+          <span className="scroll-wheel" />
+          <span>Scroll</span>
+        </div>
       </div>
     </section>
   );
@@ -546,14 +663,16 @@ function StackStrip() {
     <div className="strip" aria-hidden="true">
       <div className="strip-inner">
         {row.map((s, i) => (
-          <span key={i}>{s} <i /></span>
+          <span key={i}>
+            {s} <i />
+          </span>
         ))}
       </div>
     </div>
   );
 }
 
-/* ---------- SECTIONS ---------- */
+/* ---------- ABOUT ---------- */
 
 function About() {
   const spot = useSpotlight();
@@ -562,36 +681,41 @@ function About() {
       <div className="wrap split">
         <div className="split-sticky">
           <Reveal>
-            <Eyebrow>01 — About</Eyebrow>
+            <Eyebrow idx="01">About</Eyebrow>
             <h2 className="section-title">Engineer with a product mindset.</h2>
+            <p className="section-sub">
+              End-to-end builder — from queue internals to interface details.
+            </p>
           </Reveal>
         </div>
         <Reveal delay={120}>
-          <div className="about-body">
-            <p>
-              I’m <strong>Aryan Parmar</strong>, a B.Tech student in Electronics &amp;
-              Communication at <strong>SVNIT Surat</strong> (CGPA <strong>7.37</strong>).
-              I build systems end-to-end — a distributed job processor on Node.js
-              + Redis with its own queue internals, a real-time traffic-violation
-              detector on YOLOv8, an ML fake-account detector, and a GWOC
-              production marketplace on Next.js + PostgreSQL.
+          <div className="about-body spot" onMouseMove={spot}>
+            <p className="about-lead">
+              I build systems the way I like to use them: quiet, dependable and
+              honest about their limits.
             </p>
             <p>
-              I work across <strong>C++, JavaScript, Python and SQL</strong>, care
-              about REST design, system design and testing, and I’ve led as a
-              Junior Developer at <strong>GDG NIT Surat</strong> and an Executive
-              Member at the <strong>ACM Club</strong>. I’m looking for a software
-              engineering internship where I can keep shipping real products.
+              I’m <strong>Aryan Parmar</strong>, a B.Tech student in Electronics
+              &amp; Communication at <strong>SVNIT Surat</strong> (CGPA{" "}
+              <strong>7.37</strong>). I work end-to-end — a distributed job
+              processor on Node.js + Redis with its own queue internals, a
+              real-time traffic-violation detector on YOLOv8, an ML fake-account
+              detector, and a GWOC production marketplace on Next.js +
+              PostgreSQL.
             </p>
-            <ul className="tick-list">
-              {[
-                "Distributed systems: queues, retries, DLQs",
-                "Vision + ML: YOLOv8, BERT, FastAPI",
-                "Full-stack: Next.js, Express, Prisma",
-                "Data: PostgreSQL, Redis, MongoDB",
-              ].map((t) => (
-                <li key={t} className="spot" onMouseMove={spot}>
-                  <span className="tick"><Check size={13} /></span> {t}
+            <p>
+              I work across <strong>C++, JavaScript, Python and SQL</strong>,
+              care about REST design, system design and testing, and have led as
+              a Junior Developer at <strong>GDG NIT Surat</strong> and an
+              Executive Member at the <strong>ACM Club</strong>. I’m looking for
+              a software engineering internship where I can keep shipping real
+              products.
+            </p>
+            <ul className="principles">
+              {PRINCIPLES.map((t, i) => (
+                <li key={t}>
+                  <span className="p-idx">0{i + 1}</span>
+                  <span>{t}</span>
                 </li>
               ))}
             </ul>
@@ -602,14 +726,15 @@ function About() {
   );
 }
 
+/* ---------- EDUCATION ---------- */
+
 function Education() {
-  const spot = useSpotlight();
   return (
     <section id="Education" className="section-pad" style={{ paddingTop: 0 }}>
       <div className="wrap">
         <div className="two-col-head">
           <Reveal>
-            <Eyebrow>02 — Academics</Eyebrow>
+            <Eyebrow idx="02">Academics</Eyebrow>
             <h2 className="section-title">Education</h2>
           </Reveal>
           <Reveal delay={100}>
@@ -619,17 +744,18 @@ function Education() {
             </p>
           </Reveal>
         </div>
-        <div className="timeline">
+
+        <div className="rail">
           {EDUCATION.map((ed, i) => (
-            <Reveal key={ed.school} delay={i * 90}>
-              <div className="card t-item spot" onMouseMove={spot}>
-                <div className="t-icon"><GraduationCap size={22} strokeWidth={1.6} /></div>
-                <div>
-                  <h3>{ed.school}</h3>
-                  <p className="meta">{ed.degree} · {ed.detail}</p>
-                  <p className="meta" style={{ fontSize: 13 }}>{ed.location}</p>
-                </div>
-                <span className="t-year">{ed.year}</span>
+            <Reveal key={ed.school} delay={i * 90} as="article" className="rail-item">
+              <div className="rail-year">{ed.year}</div>
+              <div className="rail-node" aria-hidden="true"><span /></div>
+              <div className="rail-body">
+                <h3>{ed.school}</h3>
+                <p className="rail-meta">
+                  {ed.degree} · <strong>{ed.detail}</strong> · {ed.location}
+                </p>
+                {ed.note && <span className="rail-note">{ed.note}</span>}
               </div>
             </Reveal>
           ))}
@@ -639,15 +765,16 @@ function Education() {
   );
 }
 
+/* ---------- SKILLS ---------- */
+
 function Skills() {
-  const spot = useSpotlight();
   return (
     <section id="Skills" className="section-pad" style={{ paddingTop: 0 }}>
       <div className="wrap">
         <div className="two-col-head">
           <Reveal>
-            <Eyebrow>03 — Toolbox</Eyebrow>
-            <h2 className="section-title">Skills</h2>
+            <Eyebrow idx="03">Toolbox</Eyebrow>
+            <h2 className="section-title">Skills &amp; expertise</h2>
           </Reveal>
           <Reveal delay={100}>
             <p className="section-sub">
@@ -656,19 +783,22 @@ function Skills() {
             </p>
           </Reveal>
         </div>
-        <div className="skills-grid">
+
+        <div className="spec">
           {SKILLS.map((g, i) => (
-            <Reveal key={g.group} delay={(i % 3) * 90}>
-              <div className="card skill-card spot" onMouseMove={spot}>
-                <div className="skill-head">
-                  <span className="skill-ico"><g.icon size={18} strokeWidth={1.7} /></span>
-                  <h3>{g.group}</h3>
-                </div>
-                <div className="pills">
-                  {g.items.map((s) => (
-                    <span key={s} className="pill">{s}</span>
-                  ))}
-                </div>
+            <Reveal key={g.group} delay={Math.min(i * 60, 240)} as="div" className="spec-row">
+              <div className="spec-label">
+                <span className="s-ico" aria-hidden="true">
+                  <g.icon size={15} strokeWidth={1.8} />
+                </span>
+                <h3>{g.group}</h3>
+              </div>
+              <div className="spec-items">
+                {g.items.map((s) => (
+                  <span key={s} className="chip">
+                    {s}
+                  </span>
+                ))}
               </div>
             </Reveal>
           ))}
@@ -678,6 +808,98 @@ function Skills() {
   );
 }
 
+/* ---------- PROJECT VISUALS ---------- */
+
+function VizQueue() {
+  const lanes = [
+    { name: "Producer", blocks: [1, 0, 1, 0, 0] },
+    { name: "Priority", blocks: [0, 1, 1, 1, 0] },
+    { name: "Delayed", blocks: [1, 1, 0, 0, 1] },
+    { name: "Dead letter", blocks: [0, 0, 0, 1, 0] },
+  ];
+  const bars = [38, 62, 48, 90, 55, 74, 42, 66, 58, 84, 46, 70];
+  return (
+    <div className="viz viz-queue" aria-hidden="true">
+      {lanes.map((lane, li) => (
+        <div className="q-lane" key={lane.name}>
+          <em>{lane.name}</em>
+          <div className="q-track">
+            {lane.blocks.map((b, bi) => (
+              <span
+                key={bi}
+                className={`q-block ${b ? (li === 3 && bi === 3 ? "hi" : "") : "soft"}`}
+                style={{ width: `${18 + ((bi * 7 + li * 11) % 22)}px` }}
+              />
+            ))}
+          </div>
+        </div>
+      ))}
+      <div className="q-bars">
+        {bars.map((h, i) => (
+          <span key={i} style={{ height: `${h}%` }} />
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function VizFrame() {
+  return (
+    <div className="viz" aria-hidden="true">
+      <div className="viz-frame">
+        <span className="corner tl" />
+        <span className="corner tr" />
+        <span className="corner bl" />
+        <span className="corner br" />
+        <span className="viz-scan" />
+        <span className="det-box" data-label="helmet" style={{ top: "16%", left: "12%", width: "26%", height: "34%" }} />
+        <span className="det-box muted" data-label="rider" style={{ top: "24%", left: "46%", width: "22%", height: "40%" }} />
+        <span className="det-box" data-label="plate" style={{ top: "62%", left: "58%", width: "24%", height: "20%" }} />
+      </div>
+    </div>
+  );
+}
+
+function VizSignal() {
+  const cells = Array.from({ length: 60 }, (_, i) =>
+    i % 9 === 4 ? "hot" : i % 5 === 0 ? "mid" : ""
+  );
+  return (
+    <div className="viz viz-signal" aria-hidden="true">
+      <div className="sig-dots">
+        {cells.map((c, i) => (
+          <span key={i} className={c} />
+        ))}
+      </div>
+      <div className="sig-split">
+        <span className="a">Human signal</span>
+        <span className="b">Bot signal</span>
+      </div>
+    </div>
+  );
+}
+
+function VizUI() {
+  return (
+    <div className="viz" aria-hidden="true">
+      <div className="viz-ui">
+        <div className="bar">
+          <i /><i /><i />
+          <b />
+        </div>
+        <div className="hero-b" />
+        <div className="row3">
+          <span /><span /><span />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+const VIZ = { queue: VizQueue, frame: VizFrame, signal: VizSignal, ui: VizUI };
+
+/* ---------- PROJECTS ---------- */
+
 function Projects() {
   const spot = useSpotlight();
   return (
@@ -685,7 +907,7 @@ function Projects() {
       <div className="wrap">
         <div className="two-col-head">
           <Reveal>
-            <Eyebrow>04 — Selected work</Eyebrow>
+            <Eyebrow idx="04">Selected work</Eyebrow>
             <h2 className="section-title">Projects</h2>
           </Reveal>
           <Reveal delay={100}>
@@ -695,99 +917,115 @@ function Projects() {
             </p>
           </Reveal>
         </div>
-        <div className="projects-list">
-          {PROJECTS.map((p, i) => (
-            <Reveal key={p.title} delay={Math.min(i * 80, 200)}>
-              <article className="card project spot" onMouseMove={spot}>
-                <div className="p-visual" style={{ background: p.tint }}>
-                  <span className="p-num">0{i + 1}</span>
-                  <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", position: "relative", zIndex: 1 }}>
-                    <div className="p-glyph"><Boxes size={26} strokeWidth={1.5} /></div>
-                    <span className="t-year">{p.year}</span>
+
+        <div className="projects">
+          {PROJECTS.map((p, i) => {
+            const Viz = VIZ[p.viz] || VizQueue;
+            return (
+              <Reveal key={p.title} delay={Math.min(i * 70, 210)} as="article" className={`proj ${i % 2 ? "rev" : ""}`}>
+                <div className="proj-visual" style={{ "--viz": p.tint }}>
+                  <div className="proj-idxrow">
+                    <span className="proj-idx">{String(i + 1).padStart(2, "0")}</span>
+                    <span className="proj-year">{p.year}</span>
                   </div>
+                  <Viz />
                 </div>
-                <div className="p-body">
-                  <span className="p-tag">{p.tag}</span>
+
+                <div className="proj-body spot" onMouseMove={spot}>
+                  <span className="proj-tag">{p.tag}</span>
                   <h3>{p.title}</h3>
-                  <p className="p-desc">{p.description}</p>
-                  <ul className="p-feats">
+                  <p className="proj-desc">{p.description}</p>
+                  <ul className="feats">
                     {p.features.map((f) => (
-                      <li key={f}><Check size={14} /> <span>{f}</span></li>
+                      <li key={f}>
+                        <span className="f-mark" aria-hidden="true">—</span>
+                        <span>{f}</span>
+                      </li>
                     ))}
                   </ul>
-                  <div className="p-tech">
-                    {p.tech.map((t) => <span key={t}>{t}</span>)}
+                  <div className="proj-tags">
+                    {p.tech.map((t) => (
+                      <span key={t}>{t}</span>
+                    ))}
                   </div>
-                  <div className="p-actions">
+                  <div className="proj-actions">
                     {p.live ? (
-                      <a className="btn btn-primary btn-sm arrow-slide" href={p.live} target="_blank" rel="noreferrer">
-                        Live demo <ArrowUpRight size={14} />
+                      <a className="link-arrow" href={p.live} target="_blank" rel="noreferrer">
+                        Live demo <ArrowUpRight size={14} aria-hidden="true" />
                       </a>
                     ) : (
-                      <span className="btn btn-ghost btn-sm" style={{ opacity: 0.55, pointerEvents: "none" }}>
-                        Demo on request
-                      </span>
+                      <span className="proj-note">Demo on request</span>
                     )}
-                    <a className="btn btn-ghost btn-sm arrow-slide" href={p.code} target="_blank" rel="noreferrer">
-                      <FaGithub size={14} /> Source
+                    <a className="link-arrow" href={p.code} target="_blank" rel="noreferrer">
+                      <FaGithub size={14} aria-hidden="true" /> Source
                     </a>
                   </div>
                 </div>
-              </article>
-            </Reveal>
-          ))}
+              </Reveal>
+            );
+          })}
         </div>
       </div>
     </section>
   );
 }
 
+/* ---------- EXPERIENCE ---------- */
+
 function Experience() {
-  const spot = useSpotlight();
   return (
     <section id="Experience" className="section-pad" style={{ paddingTop: 0 }}>
-      <div className="wrap split">
-        <div className="split-sticky">
+      <div className="wrap">
+        <div className="two-col-head">
           <Reveal>
-            <Eyebrow>05 — Leadership</Eyebrow>
+            <Eyebrow idx="05">Leadership</Eyebrow>
             <h2 className="section-title">Experience</h2>
-            <p className="section-sub" style={{ marginTop: 12 }}>
-              Positions of responsibility across developer communities at NIT Surat.
+          </Reveal>
+          <Reveal delay={100}>
+            <p className="section-sub">
+              Positions of responsibility across developer communities at NIT
+              Surat.
             </p>
           </Reveal>
         </div>
-        <div className="exp-list">
+
+        <div className="rail">
           {POSITIONS.map((pos, i) => (
-            <Reveal key={pos.org} delay={i * 100}>
-              <div className="card exp-item spot" onMouseMove={spot}>
-                <div className="exp-dot"><Check size={18} /></div>
-                <div>
-                  <h3>{pos.role}</h3>
-                  <p>{pos.org}</p>
-                </div>
-                <span className="exp-period">{pos.period}</span>
+            <Reveal key={pos.org} delay={i * 100} as="article" className="rail-item">
+              <div className="rail-year">{pos.period}</div>
+              <div className="rail-node" aria-hidden="true"><span /></div>
+              <div className="rail-body">
+                <h3>{pos.role}</h3>
+                <p className="rail-meta">{pos.org}</p>
               </div>
             </Reveal>
           ))}
-          <Reveal delay={200}>
-            <div className="card avail-card">
-              <p>
-                <span className="avail-live"><span className="dot" /> Open to internships — </span>
-                SWE, full-stack or ML-adjacent roles starting 2026. Fast learner,
-                comfortable owning features end-to-end.
-              </p>
-            </div>
-          </Reveal>
         </div>
+
+        <Reveal delay={180}>
+          <div className="avail-plate">
+            <span className="avail-live">
+              <span className="dot" aria-hidden="true" />
+              Open to internships
+            </span>
+            <p>
+              SWE, full-stack or ML-adjacent roles starting 2026. Fast learner,
+              comfortable owning features end-to-end — from schema to shipped
+              interface.
+            </p>
+          </div>
+        </Reveal>
       </div>
     </section>
   );
 }
+
+/* ---------- CONTACT ---------- */
 
 function Contact({ notify }) {
   const [copied, setCopied] = useState(false);
   const spot = useSpotlight();
-  const cards = [
+  const channels = [
     { icon: Phone, label: "Phone", value: PROFILE.phone, href: `tel:${PROFILE.phone.replace(/[^+\d]/g, "")}` },
     { icon: Mail, label: "Email", value: PROFILE.email, href: `mailto:${PROFILE.email}` },
     { icon: FaGithub, label: "GitHub", value: "@Aryanftw", href: PROFILE.github },
@@ -808,73 +1046,119 @@ function Contact({ notify }) {
     }
     setCopied(true);
     notify("Email copied to clipboard");
-    setTimeout(() => setCopied(false), 1800);
+    window.setTimeout(() => setCopied(false), 2000);
   };
 
   return (
-    <section id="Contact" className="section-pad" style={{ paddingTop: 0 }}>
+    <section id="Contact" className="section-pad contact">
       <div className="wrap">
         <Reveal>
-          <div className="contact-hero spot" onMouseMove={spot}>
-            <Eyebrow>06 — Contact</Eyebrow>
-            <h2>Have an idea?<br /><em>Let’s build it.</em></h2>
-            <p className="contact-sub">
-              I’m currently looking for a software engineering internship.
-              My inbox is always open — I usually reply within a day.
-            </p>
-            <div style={{ display: "flex", gap: 10, justifyContent: "center", flexWrap: "wrap" }}>
-              <Magnetic>
-                <a className="btn btn-primary" href={`mailto:${PROFILE.email}`}>
-                  <Mail size={16} /> {PROFILE.email}
-                </a>
-              </Magnetic>
-              <Magnetic>
-                <button className="btn btn-ghost" onClick={copyEmail}>
-                  {copied ? <Check size={16} /> : <Copy size={16} />}
-                  {copied ? "Copied" : "Copy email"}
-                </button>
-              </Magnetic>
-              <Magnetic>
-                <a className="btn btn-ghost" href={PROFILE.resume} download>
-                  <FileText size={16} /> Résumé
-                </a>
-              </Magnetic>
-            </div>
-            <div className="contact-grid">
-              {cards.map((c) => (
-                <a key={c.label} href={c.href} target={c.href.startsWith("http") ? "_blank" : undefined} rel="noreferrer" className="card contact-card spot" onMouseMove={spot}>
-                  <span className="c-ico"><c.icon size={17} /></span>
-                  <b>{c.label}</b>
-                  <span>{c.value} <ArrowUpRight size={13} /></span>
-                </a>
-              ))}
-            </div>
+          <Eyebrow idx="06">Contact</Eyebrow>
+          <h2 className="contact-title">
+            Have something worth building?
+            <br />
+            <em>Let’s talk.</em>
+          </h2>
+          <a className="mailto" href={`mailto:${PROFILE.email}`}>
+            {PROFILE.email}
+          </a>
+
+          <div className="contact-actions">
+            <Magnetic>
+              <button className="btn btn-solid" onClick={copyEmail}>
+                {copied ? <Check size={15} aria-hidden="true" /> : <Copy size={15} aria-hidden="true" />}
+                {copied ? "Copied" : "Copy email"}
+              </button>
+            </Magnetic>
+            <Magnetic>
+              <a className="btn btn-line" href={`mailto:${PROFILE.email}`}>
+                <Mail size={15} aria-hidden="true" /> Write to me
+              </a>
+            </Magnetic>
+            <Magnetic>
+              <a className="btn btn-quiet" href={PROFILE.resume} download>
+                <FileText size={15} aria-hidden="true" /> Résumé
+              </a>
+            </Magnetic>
+            <span className="contact-note">
+              <span className="dot" aria-hidden="true" /> Usually replies within a day
+            </span>
           </div>
         </Reveal>
+
+        <div className="channels">
+          {channels.map((c, i) => (
+            <Reveal key={c.label} delay={Math.min(i * 60, 240)} as="a" className="channel spot" href={c.href} target={c.href.startsWith("http") ? "_blank" : undefined} rel="noreferrer" onMouseMove={spot}>
+              <span className="ch-label">{c.label}</span>
+              <span className="ch-value">
+                <span className="ch-ico" aria-hidden="true">
+                  <c.icon size={16} />
+                </span>
+                {c.value}
+              </span>
+              <ArrowUpRight size={16} className="ch-arrow" aria-hidden="true" />
+            </Reveal>
+          ))}
+        </div>
       </div>
     </section>
   );
 }
 
+/* ---------- FOOTER ---------- */
+
 function Footer({ onNav }) {
   const [time, setTime] = useState("");
   useEffect(() => {
     const fmt = new Intl.DateTimeFormat("en-IN", {
-      hour: "2-digit", minute: "2-digit", timeZone: "Asia/Kolkata",
+      hour: "2-digit",
+      minute: "2-digit",
+      timeZone: "Asia/Kolkata",
     });
     const update = () => setTime(`${fmt.format(new Date())} IST`);
     update();
-    const id = setInterval(update, 20000);
+    const id = window.setInterval(update, 20000);
     return () => clearInterval(id);
   }, []);
+
   return (
     <footer className="footer">
-      <div className="wrap footer-inner">
-        <p>© 2026 Aryan Parmar · Surat, India · <span className="live-time">{time}</span></p>
-        <div style={{ display: "flex", gap: 10, alignItems: "center" }}>
-          <a href={PROFILE.github} target="_blank" rel="noreferrer" className="to-top" aria-label="GitHub"><FaGithub size={16} /></a>
-          <a href={PROFILE.linkedin} target="_blank" rel="noreferrer" className="to-top" aria-label="LinkedIn"><FaLinkedin size={16} /></a>
-          <button className="to-top" onClick={() => onNav("Home")} aria-label="Back to top"><ArrowUp size={16} /></button>
+      <div className="wrap">
+        <div className="footer-top">
+          <div className="footer-brand">
+            <div className="fb-name">Aryan Parmar</div>
+            <p>
+              Full-stack &amp; ML engineer — distributed backends, production web
+              apps and vision systems. Open to internships in 2026.
+            </p>
+          </div>
+          <nav className="footer-nav" aria-label="Footer">
+            {NAV.map((item) => (
+              <button key={item} onClick={() => onNav(item)}>
+                {item}
+              </button>
+            ))}
+          </nav>
+          <div className="footer-socials">
+            <a className="icon-btn" href={PROFILE.github} target="_blank" rel="noreferrer" aria-label="GitHub profile">
+              <FaGithub size={16} aria-hidden="true" />
+            </a>
+            <a className="icon-btn" href={PROFILE.linkedin} target="_blank" rel="noreferrer" aria-label="LinkedIn profile">
+              <FaLinkedin size={16} aria-hidden="true" />
+            </a>
+            <a className="icon-btn" href={PROFILE.leetcode} target="_blank" rel="noreferrer" aria-label="LeetCode profile">
+              <SiLeetcode size={16} aria-hidden="true" />
+            </a>
+            <button className="icon-btn" onClick={() => onNav("Home")} aria-label="Back to top">
+              <ArrowUp size={16} aria-hidden="true" />
+            </button>
+          </div>
+        </div>
+        <div className="footer-bottom">
+          <p>
+            © 2026 Aryan Parmar · Surat, India · <span className="live-time">{time}</span>
+          </p>
+          <p>Set in Fraunces, Inter &amp; JetBrains Mono</p>
         </div>
       </div>
     </footer>
@@ -890,24 +1174,22 @@ export default function Portfolio() {
   const [toast, setToast] = useState("");
   const [theme, setTheme] = useState(getInitialTheme);
 
-  /* Apply day/night mode: <html data-theme>, persistence, browser chrome */
   useEffect(() => {
     document.documentElement.setAttribute("data-theme", theme);
     try {
       window.localStorage.setItem("ap-theme", theme);
-    } catch { /* ignore */ }
+    } catch {
+      /* ignore */
+    }
     const meta = document.querySelector('meta[name="theme-color"]');
-    if (meta) meta.setAttribute("content", theme === "dark" ? "#0f0f0d" : "#fafaf7");
+    if (meta) meta.setAttribute("content", theme === "dark" ? "#111110" : "#f7f6f2");
   }, [theme]);
 
-  /* Follow OS changes only until the user picks manually */
   useEffect(() => {
     const mq = window.matchMedia("(prefers-color-scheme: dark)");
     const onChange = (e) => {
       try {
-        if (!window.localStorage.getItem("ap-theme")) {
-          setTheme(e.matches ? "dark" : "light");
-        }
+        if (!window.localStorage.getItem("ap-theme")) setTheme(e.matches ? "dark" : "light");
       } catch {
         setTheme(e.matches ? "dark" : "light");
       }
@@ -924,24 +1206,21 @@ export default function Portfolio() {
     setTheme((t) => (t === "dark" ? "light" : "dark"));
   }, []);
 
-  const notify = useCallback((msg) => {
-    setToast(msg);
-  }, []);
+  const notify = useCallback((msg) => setToast(msg), []);
 
   useEffect(() => {
     if (!toast) return;
-    const id = setTimeout(() => setToast(""), 2200);
+    const id = window.setTimeout(() => setToast(""), 2200);
     return () => clearTimeout(id);
   }, [toast]);
 
-  /* Loader lifecycle: minimum display, then curtain exit */
   useEffect(() => {
     document.body.style.overflow = "hidden";
-    const t1 = setTimeout(() => {
+    const t1 = window.setTimeout(() => {
       setLoading(false);
       document.body.style.overflow = "";
-    }, 1500);
-    const t2 = setTimeout(() => setLoaderGone(true), 2150);
+    }, 1400);
+    const t2 = window.setTimeout(() => setLoaderGone(true), 2050);
     return () => {
       clearTimeout(t1);
       clearTimeout(t2);
@@ -970,11 +1249,12 @@ export default function Portfolio() {
   }, [loaderGone]);
 
   return (
-    <div style={{ minHeight: "100vh" }}>
+    <>
+      <a className="skip-link" href="#main">Skip to content</a>
       {!loaderGone && <Loader exiting={!loading} />}
       <ScrollProgress />
       <Navbar active={active} onNav={scrollTo} theme={theme} onToggleTheme={toggleTheme} />
-      <main>
+      <main id="main">
         <Hero onNav={scrollTo} ready={!loading} />
         <StackStrip />
         <About />
@@ -986,9 +1266,9 @@ export default function Portfolio() {
       </main>
       <Footer onNav={scrollTo} />
       <BackToTop />
-      <div className={`toast ${toast ? "show" : ""}`} role="status">
-        <Check size={14} /> {toast}
+      <div className={`toast ${toast ? "show" : ""}`} role="status" aria-live="polite">
+        <Check size={14} aria-hidden="true" /> {toast}
       </div>
-    </div>
+    </>
   );
 }
